@@ -1232,6 +1232,16 @@ section {
 @media (max-width: 991px) {
     .logo {
         text-align: center;
+        width: 100px;
+    }
+    .header-desktop{
+        display: none;
+    }
+    .main-content{
+        position: static;
+    }
+    .page-wrapper{
+        overflow: hidden!important;
     }
 }
 

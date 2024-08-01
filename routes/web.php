@@ -26,19 +26,26 @@ Route::prefix('admin')->group(function () {
     Route::post('inset', [IndexControllers::class, 'insetInformation']);
     Route::get('delete/{id}', [IndexControllers::class, 'disableBasicInformation']);
     Route::get('search', [IndexControllers::class, 'search']);
-    Route::get('profile/{id}', [ProfileControllers::class, 'index']);
-    Route::post('profile/update/note/{id}', [ProfileControllers::class, 'updateBasicInformationNoteOnlyById']);
-    Route::post('profile/update/{id}', [ProfileControllers::class, 'update']);
-    Route::post('profile/insert-content-img', [ProfileControllers::class, 'insertContentImg']);
-    Route::get('profile/del-img/{id_img}', [ProfileControllers::class, 'delImgInProFile']);
-    Route::get('profile/get-img/{id_img}', [ProfileControllers::class, 'getImageByImageID']);
-    Route::get('profile/ajax/{id}', [ProfileControllers::class, 'ajaxGetBasicInformationById']);
     Route::get('showToken', [IndexControllers::class, 'showToken']);
-    Route::get('building', [BuildingControllers::class, 'index']);
-    Route::get('building/{id_building}', [BuildingControllers::class, 'getDataBuildingById']);
-    Route::get('building/edit-building-each/{id}', [BuildingControllers::class, 'getDataBuildingEachDayById']);
-    Route::post('building/edit-building-each/update/{id}', [BuildingControllers::class, 'upDateBuildingById']);
-    Route::post('building/insert', [BuildingControllers::class, 'insertDataBuildingEachDay']);
+
+    Route::prefix('profile')->group(function () {
+        Route::get('{id}', [ProfileControllers::class, 'index']);
+        Route::post('update/note/{id}', [ProfileControllers::class, 'updateBasicInformationNoteOnlyById']);
+        Route::post('update/{id}', [ProfileControllers::class, 'update']);
+        Route::post('insert-content-img', [ProfileControllers::class, 'insertContentImg']);
+        Route::get('del-img/{id_img}', [ProfileControllers::class, 'delImgInProFile']);
+        Route::get('get-img/{id_img}', [ProfileControllers::class, 'getImageByImageID']);
+        Route::get('ajax/{id}', [ProfileControllers::class, 'ajaxGetBasicInformationById']);
+    });
+    Route::prefix('building')->group(function () {
+        Route::get('/', [BuildingControllers::class, 'index']);
+        Route::get('{id_building}', [BuildingControllers::class, 'getDataBuildingById']);
+        Route::get('edit-building-each/{id}', [BuildingControllers::class, 'getDataBuildingEachDayById']);
+        Route::post('edit-building-each/update/{id}', [BuildingControllers::class, 'upDateBuildingById']);
+        Route::post('insert', [BuildingControllers::class, 'insertDataBuildingEachDay']);
+    });
+
+    Route::post('profile/test/{id}', [ProfileControllers::class, 'duplicateBasicInformation']);
 
 });
 

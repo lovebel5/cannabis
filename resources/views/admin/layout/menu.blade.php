@@ -137,21 +137,28 @@
                         </li>
                     </ul>
                 </li>
-                <li class="has-sub">
+                <li class="has-sub" style="display: none">
                     <a class="js-arrow" href="#">
                         <i class="fas fa-desktop"></i>Group
                         <span class="arrow"> <i class="fas fa-angle-down"></i> </span>
                     </a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list" style="display: none;">
                         <li>
-
                             <a href="{{url('admin/building')}}"><i class="fa fa-home"></i>Building</a>
                         </li>
                     </ul>
                 </li>
                 <li>
+                    <a href="{{url('admin/building')}}">
+                        <i class="fas fa-home"></i>Warehouse</a>
+                </li>
+                <li>
                     <a href="{{url('admin/cannabis-plant')}}">
                         <i class="fas fa-leaf"></i>Cannabis Plant</a>
+                </li>
+                <li>
+                    <a href="{{url('admin/event')}}">
+                        <i class="fas fa-leaf"></i>Event</a>
                 </li>
                 <div class="d-none">
                     <li>

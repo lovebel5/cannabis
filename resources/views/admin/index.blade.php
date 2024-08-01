@@ -223,6 +223,17 @@
                                   class="form-horizontal">
                                 <div class="row form-group">
                                     <div class="col col-md-3">
+                                        <label for="text-input"
+                                               class=" form-control-label">{{$name['number_plants']}}</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input required type="number" id="text-input" name="input[{{$input['number_plants']}}]"
+                                               placeholder="{{$name['number_plants']}}" class="form-control">
+                                        <small class="form-text text-muted">This is a help </small>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
                                         <label class=" form-control-Radioslabel">{{$name['experiment_name']}}</label>
                                     </div>
                                     <div class="col-12 col-md-9">
@@ -392,7 +403,7 @@
                                     </div>
                                     <div class="col-12 col-md-4">
                                         <small class="form-text text-muted">{{$name['varieties_used']}}</small>
-                                        <input type="text" name="input[{{$input['varieties_used']}}]"
+                                        <input required type="text" name="input[{{$input['varieties_used']}}]"
                                                placeholder="{{$name['varieties_used']}}"
                                                class="form-control">
                                     </div>

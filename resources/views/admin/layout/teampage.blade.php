@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     @include ('admin.layout.head')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body class="animsition" style="opacity: 1">
 <div class="page-wrapper">

@@ -30,6 +30,8 @@ class ProfileControllers
     public function index($id)
     {
         $result = $this->ProfileLibraries->getBasicInformationById($id);
+
+       // dd($duplicate);
         if (!$result) {
             //เช็ค ID ที่ส่งมาว่ามีจริงไหม
             return redirect('admin')
@@ -189,4 +191,27 @@ class ProfileControllers
             ]);
         }
     }
+    // ฟังก์ชันที่ใช้ในการคัดลอกข้อมูลพื้นฐาน
+    public function duplicateBasicInformation($id)
+    {
+
+        $id = $data->get('id');
+        $result = $this->ImagesRepositories->getDataById($id);
+//        dd($result);
+
+        if (!$result) {
+            return back()
+                ->with('warning', 'danger')
+                ->with('message', 'ข้อมูลไม่ถูกต้อง');
+        }
+
+       $this->ProfileRepositories->duplicate($result,5);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'ข้อมูลพื้นฐานถูกคัดลอกสำเร็จ',
+            'data' => $result
+        ]);
+    }
+
 }
+

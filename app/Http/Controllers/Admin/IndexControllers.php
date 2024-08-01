@@ -58,8 +58,10 @@ class IndexControllers
             'display' => 1,
             'status' => 1
         ];
+        $save = $this->IndexRepositories->save($data);
 
-        if ($this->IndexRepositories->save($data) === true) {
+        if ($save['saveSuccessful'] === true) {
+            $this->duplicateBasicInformation($save['id'],$dataInput['number_plants']);
             return back()
                 ->with('warning', 'success')
                 ->with('message', 'บันทึกสำเร็จ ' . $dataInput['trial_code']);
@@ -102,5 +104,14 @@ class IndexControllers
     public function showToken()
     {
         echo csrf_token();
+    }
+
+    // ฟังก์ชันที่ใช้ในการคัดลอกข้อมูลพื้นฐาน
+    public function duplicateBasicInformation($id,$num)
+    {
+        $result = $this->IndexRepositories->getDataById($id);
+
+        $this->IndexRepositories->duplicate($result,$num);
+
     }
 }

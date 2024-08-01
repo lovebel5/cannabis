@@ -14,17 +14,19 @@ class ProfileRepositories
         return $members->save();
     }
 
-    public function getBasicInformationById($id){
+    public function getBasicInformationById($id)
+    {
         return DB::table('basic_information')
-            ->where('id',$id)
-            ->where('key','basic_information')
+            ->where('id', $id)
+            ->where('key', 'basic_information')
             ->get()
             ->first();
     }
 
-    public function getBuildingInfoByKey($buildingKey){
+    public function getBuildingInfoByKey($buildingKey)
+    {
         return DB::table('basic_information')
-            ->where('key','building_info')
+            ->where('key', 'building_info')
             ->where('value->building', $buildingKey)
 //            ->where('value->id_basic_info', $buildingKey)
             ->orderBy('value->date', 'DESC')
@@ -32,18 +34,20 @@ class ProfileRepositories
             ->first();
     }
 
-    public function getBuildingInfoByIdBasicInfo($buildingKey){
+    public function getBuildingInfoByIdBasicInfo($buildingKey)
+    {
         return DB::table('basic_information')
-            ->where('key','building_info')
+            ->where('key', 'building_info')
             ->where('value->id_basic_info', $buildingKey)
             ->orderBy('value->date', 'DESC')
             ->get()
             ->first();
     }
 
-    public function getBuildingInfoByKeyArray($buildingKey,$idBasicInfo){
+    public function getBuildingInfoByKeyArray($buildingKey, $idBasicInfo)
+    {
         return DB::table('basic_information')
-            ->where('key','building_info')
+            ->where('key', 'building_info')
 //            ->where('value->building', $buildingKey)
             ->where('value->id_basic_info', $idBasicInfo)
             ->orderBy('value->date', 'DESC')
@@ -51,7 +55,7 @@ class ProfileRepositories
             ->toArray();
     }
 
-    public function updateBasicInformationById($id,$data)
+    public function updateBasicInformationById($id, $data)
     {
         return DB::table('basic_information')
             ->where('id', $id)
@@ -60,7 +64,8 @@ class ProfileRepositories
             ]);
     }
 
-    public function updateBasicInformationNoteOnlyById($id,$data){
+    public function updateBasicInformationNoteOnlyById($id, $data)
+    {
         return DB::table('basic_information')
             ->where('id', $id)
             ->update([
@@ -68,14 +73,19 @@ class ProfileRepositories
             ]);
     }
 
-    public function getBuildingByDateFormDateTo($building_key, $dateForm, $dateTo){
-         return DB::table('building')
-             ->where('building', $building_key)
-             ->where('date', '>', $dateForm)
-             ->where('date', '<=', $dateTo)
+    public function getBuildingByDateFormDateTo($building_key, $dateForm, $dateTo)
+    {
+        return DB::table('building')
+            ->where('building', $building_key)
+            ->where('date', '>', $dateForm)
+            ->where('date', '<=', $dateTo)
 //             ->whereBetween('date', [$dateForm, $dateTo])
-             ->orderBy('date', 'ASC')
-             ->get()
-             ->toArray();
-     }
+            ->orderBy('date', 'ASC')
+            ->get()
+            ->toArray();
+    }
+
+
+
+
 }

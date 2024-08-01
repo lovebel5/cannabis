@@ -30,7 +30,18 @@
                                     <img style="width: auto;height: 70px" src="https://barcode.tec-it.com/barcode.ashx?data={{$data->id}}&code=Code128&translate-esc=true&dmsize=Default">
                                 </div>
                                 <form action="{{url('admin/profile/update/'.$data->id)}}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                
                                     <div class="row form-group">
+                                    <div class="col-12 col-md-3">
+                                           <!-- วันที่ปลูก -->
+                                            <small
+                                                class="form-text text-muted">{{$var['name']['planting_date']}}</small>
+                                            <input type="date"
+                                                   value="{{$data->value['planting_date']}}"
+    {{--                                                   value="{{date('d-m-Y')}}"--}}
+                                                   name="input[{{$var['input']['planting_date']}}]"
+                                                   placeholder="Text" class="form-control">
+                                        </div>
 {{--                                        {{dd($data,$building)}}--}}
                                         <div class="col-12 col-md-3">
                                             <small
@@ -41,18 +52,22 @@
                                                     @endforeach
                                             </select>
                                         </div>
+                                
                                         <div class="col-12 col-md-3">
+                                                <!-- รหัสการทดลอง -->
                                             <small class="form-text text-muted">{{$var['name']['trial_code']}}</small>
                                             <input type="text" value="{{$data->value['trial_code']}}"
                                                    name="input[{{$var['input']['trial_code']}}]" placeholder="Text"
                                                    class="form-control">
                                         </div>
+                                  
                                         <div class="col-12 col-md-3">
                                             <small class="form-text text-muted">{{$var['name']['objective']}}</small>
                                             <input type="text" value="{{$data->value['objective']}}"
                                                    name="input[{{$var['input']['objective']}}]" placeholder="Text"
                                                    class="form-control">
                                         </div>
+                                        <!-- หัวหน้าโรงเรือน -->
                                         <div class="col-12 col-md-3">
 {{--                                            {{dd($data->value)}}--}}
                                             <small class="form-text text-muted">{{$var['name']['expert']}}</small>
@@ -64,6 +79,7 @@
                                                 @endif
                                             </select>
                                         </div>
+                                        <!-- เจ้าหน้าที่ประจำโรงเรื่อน -->
                                         <div class="col-12 col-md-3">
                                             <small
                                                 class="form-text text-muted">{{$var['name']['coworker']}}</small>
@@ -75,7 +91,9 @@
                                                 @endif
                                             </select>
                                         </div>
+                                       
                                         <div class="col-12 col-md-3">
+                                            <!-- po-partner -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['research_center']}}</small>
                                             <input type="text"
@@ -84,24 +102,28 @@
                                                    class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                            <!-- ฤดี-ปี -->
                                             <small class="form-text text-muted">{{$var['name']['year']}}</small>
                                             <input type="text" value="{{$data->value['year']}}"
                                                    name="input[{{$var['input']['year']}}]" placeholder="Text"
                                                    class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                            <!-- สถานที่ -->
                                             <small class="form-text text-muted">{{$var['name']['address_land']}}</small>
                                             <input type="text" value="{{$data->value['address_land']}}"
                                                    name="input[{{$var['input']['address_land']}}]" placeholder="Text"
                                                    class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                            <!-- พิกัด -->
                                             <small class="form-text text-muted">{{$var['name']['coordinates']}}</small>
                                             <input type="text" value="{{$data->value['coordinates']}}"
                                                    name="input[{{$var['input']['coordinates']}}]" placeholder="Text"
                                                    class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                            <!-- พื้นที่ -->
                                             <small class="form-text text-muted">{{$var['name']['sloping_area']}}</small>
                                             <div class="input-group">
                                             <input type="text" value="{{$data->value['sloping_area']}}"
@@ -113,12 +135,14 @@
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-3">
+                                            <!-- ทิศทาง -->
                                             <small class="form-text text-muted">{{$var['name']['direction']}}</small>
                                             <input type="text" value="{{$data->value['direction']}}"
                                                    name="input[{{$var['input']['direction']}}]" placeholder="Text"
                                                    class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                            <!-- ไถแปร -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['plow']}}</small>
                                             <input type="text"
@@ -127,6 +151,7 @@
                                                    placeholder="Text" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                            <!-- แผนการทอดลอง -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['trial_plan']}}</small>
                                             <input type="text"
@@ -135,6 +160,7 @@
                                                    placeholder="Text" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                            <!-- วิธีการปลูก -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['how_to_plant']}}</small>
                                             <input type="text"
@@ -142,16 +168,9 @@
                                                    name="input[{{$var['input']['how_to_plant']}}]"
                                                    placeholder="Text" class="form-control">
                                         </div>
+                                    
                                         <div class="col-12 col-md-3">
-                                            <small
-                                                class="form-text text-muted">{{$var['name']['planting_date']}}</small>
-                                            <input type="date"
-                                                   value="{{$data->value['planting_date']}}"
-{{--                                                   value="{{date('d-m-Y')}}"--}}
-                                                   name="input[{{$var['input']['planting_date']}}]"
-                                                   placeholder="Text" class="form-control">
-                                        </div>
-                                        <div class="col-12 col-md-3">
+                                            <!-- วันที่งอก -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['germination_date']}}</small>
                                             <input type="date"
@@ -160,14 +179,7 @@
                                                    placeholder="Text" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
-                                            <small
-                                                class="form-text text-muted">{{$var['name']['how_to_plant']}}</small>
-                                            <input type="text"
-                                                   value="{{$data->value['how_to_plant']}}"
-                                                   name="input[{{$var['input']['how_to_plant']}}]"
-                                                   placeholder="Text" class="form-control">
-                                        </div>
-                                        <div class="col-12 col-md-3">
+                                            <!-- อัตราปลูก -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['planting_rate']}}</small>
                                             <input type="text"
@@ -176,6 +188,7 @@
                                                    placeholder="Text" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                            <!-- พันะุ์ที่ใช้ -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['varieties_used']}}</small>
                                             <input type="text"
@@ -184,6 +197,7 @@
                                                    placeholder="Text" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                            <!-- การเตรียมเมล็ดพันธ์ -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['seed_preparation']}}</small>
                                             <input type="text"
@@ -192,6 +206,7 @@
                                                    placeholder="Text" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                        <!-- วันปลูกซ่อมหรือถอดแยก -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['repair_day']}}</small>
                                             <input type="date"
@@ -200,6 +215,7 @@
                                                    placeholder="Text" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                        <!-- วันเก็บเกี่ยว -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['harvest_day']}}</small>
                                             <input type="date"
@@ -208,6 +224,7 @@
                                                    placeholder="Text" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
+                                        <!-- ประเภทดิน -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['soil_type']}}</small>
                                             <select name="input[{{$var['input']['soil_type']}}]" class="form-control">

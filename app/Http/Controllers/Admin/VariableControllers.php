@@ -61,7 +61,8 @@ class VariableControllers
                 'mold'	            =>	'mold',
                 'other'	            =>	'other',
                 'note'	            =>	'note',
-                'status'	        =>	'status'
+                'status'	        =>	'status',
+                'number_plants'	        =>	'number_plants',
 
             ],
             'name' => [
@@ -96,7 +97,8 @@ class VariableControllers
                 'other'                 => 'อื่นๆ',
                 'note'                  => 'Note',
                 'status'	            =>	'สถานะ',
-                'building'	            =>	'โรงเรือน'
+                'building'	            =>	'โรงเรือน',
+                'number_plants'	            =>	'จำนวนต้น'
             ]
 
         ];
