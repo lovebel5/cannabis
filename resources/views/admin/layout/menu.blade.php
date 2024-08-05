@@ -23,13 +23,17 @@
         <div class="container-fluid">
             <ul class="navbar-mobile__list list-unstyled">
                 <li class="has-sub">
-                    <a class="js-arrow" href="#">
-                        <i class="fas fa-pagelines"></i>Cannabis Plant</a>
-                    <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                        <li>
-                            <a href="index.html">Dashboard 1</a>
-                        </li>
-                    </ul>
+                    <a href="{{url('admin/building')}}">
+                        <i class="fas fa-home"></i>Warehouse
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('admin/cannabis-plant')}}">
+                        <i class="fas fa-leaf"></i>Cannabis Plant</a>
+                </li>
+                <li>
+                    <a href="{{url('admin/event')}}">
+                        <i class="fas fa-leaf"></i>Event</a>
                 </li>
                 <div class="d-none">
                     <li>
@@ -150,7 +154,8 @@
                 </li>
                 <li>
                     <a href="{{url('admin/building')}}">
-                        <i class="fas fa-home"></i>Warehouse</a>
+                        <i class="fas fa-home"></i>Warehouse
+                    </a>
                 </li>
                 <li>
                     <a href="{{url('admin/cannabis-plant')}}">

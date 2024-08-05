@@ -53,8 +53,6 @@
             }
         }
 
-
-
     </style>
 
     <!-- MAIN CONTENT-->
@@ -224,20 +222,44 @@
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input"
-                                               class=" form-control-label">{{$name['number_plants']}}</label>
+                                               class=" form-control-label">{{$name['planting_date']}}</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input required type="number" id="text-input" name="input[{{$input['number_plants']}}]"
-                                               placeholder="{{$name['number_plants']}}" class="form-control">
+                                        <input type="date" name="input[{{$input['planting_date']}}]"
+                                               placeholder="{{$name['planting_date']}}"
+                                               class="form-control" value="{{date('Y-m-d')}}">
                                         <small class="form-text text-muted">This is a help </small>
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
+                                        <label for="text-input"
+                                               class=" form-control-label">{{$name['number_plants']}}</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input required type="number" id="text-input" name="input[{{$input['number_plants']}}]"
+                                               placeholder="1-999" class="form-control" value="1" min="1" max="999" maxlength="3" oninput="this.value=this.value.slice(0, this.maxLength)">
+                                        <small class="form-text text-muted">This is a help </small>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-Radioslabel">{{$name['varieties_used']}}</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input required type="text" name="input[{{$input['varieties_used']}}]"
+                                               placeholder="{{$name['varieties_used']}}"
+                                               class="form-control">
+                                        <small class="form-text text-muted">This is a help </small>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
                                         <label class=" form-control-Radioslabel">{{$name['experiment_name']}}</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <select name="input[{{$input['experiment_name']}}]"  class="form-control text-uppercase">
+                                        <select name="input[{{$input['experiment_name']}}]"  class="form-control text-uppercase">expert
                                             <option selected value="">โปรดเลือก</option>
                                             @foreach ($building as $index => $value)
                                                 <option value="{{$value}}">{{$value}}</option>
@@ -274,9 +296,9 @@
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <select name="input[{{$input['expert']}}][]" class="form-control select2"  multiple="multiple" >
-{{--                                            @foreach ($head_project as $key => $value)--}}
-{{--                                                <option value="{{$key}}">{{$value}}</option>--}}
-{{--                                            @endforeach--}}
+                                            @foreach ($head_project as $key => $value)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -377,13 +399,7 @@
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <div class="col-12 col-md-6">
-                                        <small class="form-text text-muted">{{$name['planting_date']}}</small>
-                                        <input type="date" name="input[{{$input['planting_date']}}]"
-                                               placeholder="{{$name['planting_date']}}"
-                                               class="form-control" value="{{date('Y-m-d')}}">
-                                    </div>
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12 col-md-4">
                                         <small class="form-text text-muted">{{$name['germination_date']}}</small>
                                         <input type="date" name="input[{{$input['germination_date']}}]"
                                                placeholder="{{$name['germination_date']}}"
@@ -401,12 +417,7 @@
                                                placeholder="{{$name['planting_rate']}}"
                                                class="form-control">
                                     </div>
-                                    <div class="col-12 col-md-4">
-                                        <small class="form-text text-muted">{{$name['varieties_used']}}</small>
-                                        <input required type="text" name="input[{{$input['varieties_used']}}]"
-                                               placeholder="{{$name['varieties_used']}}"
-                                               class="form-control">
-                                    </div>
+
                                     <div class="col-12 col-md-4">
                                         <small class="form-text text-muted">{{$name['seed_preparation']}}</small>
                                         <input type="text" name="input[{{$input['seed_preparation']}}]"

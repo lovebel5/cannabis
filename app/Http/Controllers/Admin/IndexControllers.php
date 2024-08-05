@@ -61,7 +61,13 @@ class IndexControllers
         $save = $this->IndexRepositories->save($data);
 
         if ($save['saveSuccessful'] === true) {
-            $this->duplicateBasicInformation($save['id'],$dataInput['number_plants']);
+            if ($dataInput['number_plants'] > 1) {
+                /*   ถ้าค่าของ number_plants มากกว่า 0 ให้เรียกฟังก์ชัน duplicateBasicInformation เพื่อทำซ้ำข้อมูล
+                     โดยส่ง ID ที่ได้จากการบันทึกข้อมูล  และจำนวนที่ต้องการทำซ้ำ
+                */
+                $this->duplicateBasicInformation($save['id'],$dataInput['number_plants']);
+            }
+
             return back()
                 ->with('warning', 'success')
                 ->with('message', 'บันทึกสำเร็จ ' . $dataInput['trial_code']);
@@ -109,9 +115,13 @@ class IndexControllers
     // ฟังก์ชันที่ใช้ในการคัดลอกข้อมูลพื้นฐาน
     public function duplicateBasicInformation($id,$num)
     {
-        $result = $this->IndexRepositories->getDataById($id);
 
-        $this->IndexRepositories->duplicate($result,$num);
+        $result = $this->IndexRepositories->getDataById($id);
+        if(!$this->IndexRepositories->duplicateData($result,$num)){
+            return back()
+                ->with('warning', 'danger')
+                ->with('message', 'ปรับปรุงรายการไม่สำเร็จ');
+        }
 
     }
 }

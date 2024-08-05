@@ -61,13 +61,4 @@ class BuildingRepositories
             ));
     }
 
-
-
-//    public function upDataBuildingEachDay($id,$data){
-//        return DB::table('building')
-//            ->where('id', $id)
-//            ->update([
-//                'value->note' => $data
-//            ]);
-//    }
 }

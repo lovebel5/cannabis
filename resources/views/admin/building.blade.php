@@ -37,10 +37,12 @@
                             <div class="card-header">
                                 <strong>Select Building</strong>
                             </div>
-                            <div class="card-body card-block">
-                            <div class="col-ms-12 text-center">
+{{--                            <div class="card-body card-block">--}}
+{{--                            <div class="col-ms-12 text-center">--}}
+                            <div class="container">
+                                <div class="row">
                             @foreach($var['building'] as $index => $val)
-                                <div class="col-2 d-inline-block text-uppercase zoom">
+                                <div class="col-sm text-uppercase zoom text-center">
                                     <a href="{{($val != 'null' ? url('admin/building/'.$val) : '')}}" title="{{$val}}" style="color: #757575;" >
                                     <i class="col-12 fa fa-home" style="font-size: 70px;padding: 40px 40px 10px 40px;"></i>
                                     <strong>{{$val}}</strong>

@@ -47,12 +47,13 @@ class IndexRepositories
             ->find($id);
     }
     // ฟังก์ชันที่ใช้ในการทำซ้ำข้อมูลตามจำนวนที่ต้องการ
-    public function duplicate($data,$num)
-
+    public function duplicateData($data,$num)
     {
+        // แปลงข้อมูลเป็น array และลบฟิลด์ id
         $array = json_decode(json_encode($data), true);
         unset($array['id']);
 
+        // ทำซ้ำข้อมูลตามจำนวนที่ต้องการ
         for ($i = 1; $i < $num; $i++) {
             DB::table('basic_information')->insert($array);
         }

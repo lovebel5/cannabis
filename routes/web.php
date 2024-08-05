@@ -4,7 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\IndexControllers;
 use App\Http\Controllers\Admin\ProfileControllers;
 use App\Http\Controllers\Admin\BuildingControllers;
+use App\Http\Controllers\Admin\EventControllers;
+
 use App\Http\Controllers\UserControllers;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +49,11 @@ Route::prefix('admin')->group(function () {
         Route::post('insert', [BuildingControllers::class, 'insertDataBuildingEachDay']);
     });
 
-    Route::post('profile/test/{id}', [ProfileControllers::class, 'duplicateBasicInformation']);
+    Route::prefix('event')->group(function () {
+        Route::get('/', [EventControllers::class, 'index']);
+        Route::post('/test', [EventControllers::class, 'test']);
+    });
+
 
 });
 

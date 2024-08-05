@@ -30,7 +30,7 @@
                                     <img style="width: auto;height: 70px" src="https://barcode.tec-it.com/barcode.ashx?data={{$data->id}}&code=Code128&translate-esc=true&dmsize=Default">
                                 </div>
                                 <form action="{{url('admin/profile/update/'.$data->id)}}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                                
+
                                     <div class="row form-group">
                                     <div class="col-12 col-md-3">
                                            <!-- วันที่ปลูก -->
@@ -42,7 +42,15 @@
                                                    name="input[{{$var['input']['planting_date']}}]"
                                                    placeholder="Text" class="form-control">
                                         </div>
-{{--                                        {{dd($data,$building)}}--}}
+                                        <div class="col-12 col-md-3">
+                                            <!-- พันะุ์ที่ใช้ -->
+                                            <small
+                                                class="form-text text-muted">{{$var['name']['varieties_used']}}</small>
+                                            <input type="text"
+                                                   value="{{$data->value['varieties_used']}}"
+                                                   name="input[{{$var['input']['varieties_used']}}]"
+                                                   placeholder="Text" class="form-control">
+                                        </div>
                                         <div class="col-12 col-md-3">
                                             <small
                                                 class="form-text text-muted">{{$var['name']['experiment_name']}}</small>
@@ -52,7 +60,7 @@
                                                     @endforeach
                                             </select>
                                         </div>
-                                
+
                                         <div class="col-12 col-md-3">
                                                 <!-- รหัสการทดลอง -->
                                             <small class="form-text text-muted">{{$var['name']['trial_code']}}</small>
@@ -60,7 +68,7 @@
                                                    name="input[{{$var['input']['trial_code']}}]" placeholder="Text"
                                                    class="form-control">
                                         </div>
-                                  
+
                                         <div class="col-12 col-md-3">
                                             <small class="form-text text-muted">{{$var['name']['objective']}}</small>
                                             <input type="text" value="{{$data->value['objective']}}"
@@ -91,7 +99,7 @@
                                                 @endif
                                             </select>
                                         </div>
-                                       
+
                                         <div class="col-12 col-md-3">
                                             <!-- po-partner -->
                                             <small
@@ -168,7 +176,7 @@
                                                    name="input[{{$var['input']['how_to_plant']}}]"
                                                    placeholder="Text" class="form-control">
                                         </div>
-                                    
+
                                         <div class="col-12 col-md-3">
                                             <!-- วันที่งอก -->
                                             <small
@@ -187,15 +195,7 @@
                                                    name="input[{{$var['input']['planting_rate']}}]"
                                                    placeholder="Text" class="form-control">
                                         </div>
-                                        <div class="col-12 col-md-3">
-                                            <!-- พันะุ์ที่ใช้ -->
-                                            <small
-                                                class="form-text text-muted">{{$var['name']['varieties_used']}}</small>
-                                            <input type="text"
-                                                   value="{{$data->value['varieties_used']}}"
-                                                   name="input[{{$var['input']['varieties_used']}}]"
-                                                   placeholder="Text" class="form-control">
-                                        </div>
+
                                         <div class="col-12 col-md-3">
                                             <!-- การเตรียมเมล็ดพันธ์ -->
                                             <small
