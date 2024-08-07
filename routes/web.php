@@ -51,7 +51,9 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('event')->group(function () {
         Route::get('/', [EventControllers::class, 'index']);
-        Route::post('/test', [EventControllers::class, 'test']);
+        Route::get('/{id}', [EventControllers::class, 'checkEventByIdInfo']);
+        Route::get('/show', [EventControllers::class, 'show']);
+        Route::post('/inset', [EventControllers::class, 'insetEvent']);
     });
 
 

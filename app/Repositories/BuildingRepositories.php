@@ -2,6 +2,7 @@
 
 
 namespace App\Repositories;
+
 use App\Models\BuildingModels;
 use DB;
 

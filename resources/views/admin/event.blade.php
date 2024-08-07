@@ -128,7 +128,7 @@
             width: 100%;
         }
 
-        .new-comment input[name="title"] {
+        .new-comment input#comment-input {
             border: 1px solid var(--c-grey-200);
             border-radius: 6px;
             height: 48px;
@@ -318,6 +318,14 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
+                        @if(session('warning'))
+                            <div class="alert alert-{{session('warning')}}" role="alert">
+                                {{session('message')}}
+                                <button type="button" class="close " data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
                         <div class="card">
                             <div class="card-header">
                                 <strong>Timeline events</strong>
@@ -333,7 +341,7 @@
 			</i>
 		</span>
                                         <div class="col-md-12 p-0">
-                                            <form action="{{url('admin/event/test')}}" method="post" enctype="multipart/form-data" id="comment-form">
+                                            <form action="{{url('admin/event/inset')}}" method="post" enctype="multipart/form-data" id="comment-form">
                                                 <div class="new-comment">
                                                     <div class="tags-container">
                                                         <button type="button" class="tag-button" onclick="addTag('รดน้ำ', this)">รดน้ำ</button>
@@ -341,12 +349,11 @@
                                                         <button type="button" class="tag-button" onclick="addTag('พวนดิน', this)">พวนดิน</button>
                                                     </div>
 
-                                                    <input type="text" id="comment-input" name="title" placeholder="Add a comment..." onkeydown="submitOnEnter(event)"/>
+
+                                                    <input type="text" id="comment-input" name="message" placeholder="Add a comment..." onkeydown="submitOnEnter(event)"/>
                                                     <div id="selected-tags" class="selected-tags"></div>
                                                     <input type="hidden" id="tags-input" name="tags">
-                                                    <div class="col-md-3 p-0">
-                                                        <input type="file"  name="upload_img[]"  multiple class="form-control-file font-italic">
-                                                    </div>
+                                                    <input type="hidden" value="{{$info_id}}" name="id_basic_info"/>
 
                                                     <div class="col-md-12 m-1 text-right">
                                                     <button  type="submit" class="btn btn-success btn-sm">บันทึก</button>
