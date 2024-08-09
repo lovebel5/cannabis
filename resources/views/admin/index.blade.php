@@ -85,14 +85,15 @@
                             <table class="table table-borderless table-striped table-earning" id="myTable">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th class="text-center">Modify</th>
+                                    <th>#ID</th>
                                     <th style="width: 100px">{{$name['experiment_name']}}</th>
                                     <th>{{$name['trial_code']}}</th>
-                                    <th class="text-right">{{$name['varieties_used']}}</th>
-                                    <th class="text-right">{{$name['planting_date']}}</th>
+                                    <th class="">{{$name['varieties_used']}}</th>
+                                    <th class="">{{$name['planting_date']}}</th>
                                     <!-- <th class="text-right">{{$name['status']}}</th> -->
                                     <!-- <th class="text-right">Updated At</th> -->
-                                    <th class="text-right">Modify</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -105,27 +106,25 @@
                                     $value = json_decode($basicInformation[$index]->value, true);
                                     ?>
                                     <tr>
-                                        <td>{{$row}}</td>
-                                        <td onclick="checkBasicInformationById({{$val->id}})" class="text-uppercase">{{$value['experiment_name']}}</td>
-                                        <td onclick="checkBasicInformationById({{$val->id}})" >{{$value['trial_code']}}</td>
-                                        <td class="text-right"><a style="color: #808080"  target="_blank">{{$value['varieties_used']}}</a></td>
-                                        <td class="text-right">{{$value['planting_date']}}</td>
-                                        <!-- <td class="text-right">{{$status[$val->display]}}</td> -->
-                                        <!-- <td class="text-right">{{$val->updated_at}}</td> -->
                                         <td>
-                                            <div class="table-data-feature">
+                                            <div class="table-data-feature justify-content-center">
                                                 @if($value['note'] != '')
-                                                <button id-note="{{$val->id}}" onclick="updateNote('{{$val->id}}',$(this).attr('data-original-title'))" class="item note" data-toggle="tooltip" data-placement="top" title=""
-                                                        data-original-title="{{$value['note']}}">
-                                                </button>
+                                                    <button id-note="{{$val->id}}" onclick="updateNote('{{$val->id}}',$(this).attr('data-original-title'))" class="item note" data-toggle="tooltip" data-placement="top" title=""
+                                                            data-original-title="{{$value['note']}}">
+                                                    </button>
                                                 @endif
-                                                 <button class="item"
-                                                            data-placement="top" title=""
-                                                            data-original-title="{{$value['trial_code']}}" data-toggle="modal"
-                                                         data-target="#modalQrCode" id="{{$val->id}}">
-                                                        <i class="fa fa-qrcode"></i>
+                                                <a href="{{url('admin/event/'.$val->id)}}" target="_blank"> <button class="item">
+                                                        <i class="fa fa-paperclip" aria-hidden="true"></i>
 
-                                                 </button>
+                                                    </button>
+                                                </a>
+                                                <button class="item"
+                                                        data-placement="top" title=""
+                                                        data-original-title="{{$value['trial_code']}}" data-toggle="modal"
+                                                        data-target="#modalQrCode" id="{{$val->id}}">
+                                                    <i class="fa fa-qrcode"></i>
+
+                                                </button>
                                                 <button onclick="checkBasicInformationById('{{$val->id}}')" class="item"
                                                         data-toggle="tooltip" data-placement="top" title=""
                                                         data-original-title="Edit">
@@ -139,6 +138,14 @@
 
                                             </div>
                                         </td>
+                                        <td>{{$row}} [{{$val->id}}]</td>
+                                        <td onclick="checkBasicInformationById({{$val->id}})" class="text-uppercase">{{$value['experiment_name']}}</td>
+                                        <td onclick="checkBasicInformationById({{$val->id}})" >{{$value['trial_code']}}</td>
+                                        <td class=""><a style="color: #808080"  target="_blank">{{$value['varieties_used']}}</a></td>
+                                        <td class="">{{$value['planting_date']}}</td>
+                                        <!-- <td class="text-right">{{$status[$val->display]}}</td> -->
+                                        <!-- <td class="text-right">{{$val->updated_at}}</td> -->
+
                                     </tr>
 
                                     <?php

@@ -23,9 +23,21 @@ class VariableControllers
              case "building":
                 return $this->building();
                 break;
+             case "eventCannabis":
+                return $this->eventCannabis();
+                break;
             default:
                 return false;
         }
+    }
+
+    public function eventCannabis(){
+        return $var = [
+            0 => 'รดน้ำ',
+            1 => 'ใส่ปุ๋ย',
+            2 => 'พวนดิน',
+            3 => 'แมลง',
+        ];
     }
 
     public function variable(){
