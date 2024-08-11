@@ -40,6 +40,13 @@ class IndexControllers
         ]);
     }
 
+    public function printQrCode(Request $input){
+        $input = $input->get('selectedRows');
+        return response()->json([
+            'date' => $input,
+        ]);
+    }
+
     public function insetInformation(Request $input)
     {
         $dataInput = $input->get('input');

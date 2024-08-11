@@ -27,6 +27,7 @@ Route::get('/', [UserControllers::class, 'index']);
 Route::prefix('admin')->group(function () {
     Route::get('/', [BuildingControllers::class, 'index']);
     Route::get('/cannabis-plant', [IndexControllers::class, 'index']);
+    Route::post('/print-qr-code', [IndexControllers::class, 'printQrCode']);
     Route::post('inset', [IndexControllers::class, 'insetInformation']);
     Route::get('delete/{id}', [IndexControllers::class, 'disableBasicInformation']);
     Route::get('search', [IndexControllers::class, 'search']);

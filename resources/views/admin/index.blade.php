@@ -75,6 +75,13 @@
                                     data-target="#scrollmodal">
                                 <i class="zmdi zmdi-plus"></i>add item
                             </button>
+                            <button class="item"
+                                    data-placement="top" title=""
+                                    data-original-title="" data-toggle="modal"
+                                    data-target="#modal_print_qr_code" id="" type="button">
+                                <i class="fa fa-qrcode"></i>
+
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -82,9 +89,11 @@
                 <div class="row m-t-25">
                     <div class="col-lg-12">
                         <div class="table-responsive table--no-card m-b-30">
+                            <form id="list_cnb">
                             <table class="table table-borderless table-striped table-earning" id="myTable">
                                 <thead>
                                 <tr>
+                                    <th><input type="checkbox" id="select-all"></th> <!-- คอลัมน์ checkbox -->
                                     <th class="text-center">Modify</th>
                                     <th>#ID</th>
                                     <th style="width: 100px">{{$name['experiment_name']}}</th>
@@ -101,11 +110,13 @@
                                 $row = 1;
                                 //                                dd($basicInformation);
                                 ?>
+                                {{-- TODO loopTable --}}
                                 @foreach ($basicInformation as $index => $val)
                                     <?php
                                     $value = json_decode($basicInformation[$index]->value, true);
                                     ?>
                                     <tr>
+                                        <td><input type="checkbox" class="select-row" id="{{$val->id}}" data-planting-date="{{$value['planting_date']}}" data-varieties-used="{{$value['varieties_used']}}"></td>
                                         <td>
                                             <div class="table-data-feature justify-content-center">
                                                 @if($value['note'] != '')
@@ -113,7 +124,7 @@
                                                             data-original-title="{{$value['note']}}">
                                                     </button>
                                                 @endif
-                                                <a href="{{url('admin/event/'.$val->id)}}" target="_blank"> <button class="item">
+                                                <a href="{{url('admin/event/'.$val->id)}}" target="_blank"> <button class="item" type="button">
                                                         <i class="fa fa-paperclip" aria-hidden="true"></i>
 
                                                     </button>
@@ -121,18 +132,18 @@
                                                 <button class="item"
                                                         data-placement="top" title=""
                                                         data-original-title="{{$value['trial_code']}}" data-toggle="modal"
-                                                        data-target="#modalQrCode" id="{{$val->id}}">
+                                                        data-target="#modalQrCode" id="{{$val->id}}" type="button">
                                                     <i class="fa fa-qrcode"></i>
 
                                                 </button>
                                                 <button onclick="checkBasicInformationById('{{$val->id}}')" class="item"
                                                         data-toggle="tooltip" data-placement="top" title=""
-                                                        data-original-title="Edit">
+                                                        data-original-title="Edit" type="button">
                                                     <i class="zmdi zmdi-edit"></i>
                                                 </button>
                                                 <button onclick="del('{{$val->id}}','{{$value['experiment_name']}}')" class="item" data-toggle="tooltip"
                                                         data-placement="top" title=""
-                                                        data-original-title="Delete">
+                                                        data-original-title="Delete" type="button">
                                                     <i class="zmdi zmdi-delete"></i>
                                                 </button>
 
@@ -154,6 +165,8 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            <button type="button" id="submit-btn">Submit</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -165,49 +178,51 @@
 
     <!-- Modal Qr-Code-->
     <div id="printThis">
-    <div class="modal fade" id="modalQrCode" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel"
-         aria-hidden="true"
-         data-backdrop="static">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="">
-                        <div class="card-body card-block">
-                            <div class="col-12 text-center">
-                                <img id="logo" width="100px" src="{{url('images/icon/logo.png')}}" alt="Herbal Health Tourism Phuket"/>
-                            </div>
-                            <div class="col-12">
+        <div class="modal fade" id="modalQrCode" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel"
+             aria-hidden="true"
+             data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="">
+                            <div class="card-body card-block">
                                 <div class="col-12 text-center">
-                                    <img name="gen-qr-code" src="">
+                                    <img id="logo" width="100px" src="{{url('images/icon/logo.png')}}"
+                                         alt="Herbal Health Tourism Phuket"/>
                                 </div>
-                                <div class="col-12 text-center">
-                                    <div>
-                                        <p>Staff</p>
-                                        <img name="gen-bar-code" src=''/>
+                                <div class="col-12">
+                                    <div class="col-12 text-center">
+                                        <img name="gen-qr-code" src="">
                                     </div>
+                                    <div class="col-12 text-center">
+                                        <div>
+                                            <p>Staff</p>
+                                            <img name="gen-bar-code" src=''/>
+                                        </div>
 
+                                    </div>
                                 </div>
+
                             </div>
 
                         </div>
-
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-hidden="true">Close</button>
-                    <button id="btnPrint" type="button" class="btn btn-primary btn-sm">Print</button>
-                </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-hidden="true">Close</button>
+                        <button id="btnPrint" type="button" class="btn btn-primary btn-sm">Print</button>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-    </div>
+
     <!-- END Modal Qr-Code-->
 
     <div class="modal fade" id="scrollmodal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel"
@@ -477,6 +492,7 @@
                                     </button>
                                 </div>
                                 {{ csrf_field() }}
+
                             </form>
                         </div>
 
@@ -487,6 +503,32 @@
         </div>
     </div>
 
+    <div id="print_qr_code">
+        <div class="modal fade" id="modal_print_qr_code" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel"
+             aria-hidden="true"
+             data-backdrop="static">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-hidden="true">Close</button>
+                        <button id="btnPrint" type="button" class="btn btn-primary btn-sm">Print</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
     <link rel="stylesheet" href="{{url('location.thailand/dist/jquery.Thailand.min.css')}}">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
@@ -654,16 +696,86 @@
                 $('img[name="gen-bar-code"]').attr('src',genBarCode);
                 $('#modalQrCode #staticModalLabel').text(trialCode +'['+id+']');
             });
-            $('#myTable').DataTable({
-                "pageLength": 100, // ตั้งค่าเริ่มต้นจำนวนแถวที่แสดงต่อหน้าเป็น 100
-                "lengthMenu": [50, 100, 200, 500, -1] // ตัวเลือกจำนวนแถวที่แสดง
+             // กำหนดตัวแปร table
+             var table = $('#myTable').DataTable({
+                "pageLength": 100,
+                "lengthMenu": [50, 100, 200, 500, -1],
+                'columnDefs': [
+                    {
+                        'targets': 0, // คอลัมน์ checkbox
+                        'orderable': false, // ปิดการเรียงลำดับ
+                        'className': 'select-checkbox',
+                        'checkboxes': {
+                            'selectRow': true
+                        }
+                    }
+                ],
+                'select': {
+                    'style': 'multi'
+                },
+                'order': [[1, 'asc']]
             });
-            $('.select2').select2({
-                tags: true,
-                tokenSeparators: [',', ' '],
-                placeholder: "เลือก"
+
+            // ทำให้ checkbox ในหัวตารางสามารถเลือก/ไม่เลือกแถวทั้งหมดได้
+            $('#select-all').on('click', function(){
+                var rows = table.rows({ 'search': 'applied' }).nodes();
+                $('input[type="checkbox"]', rows).prop('checked', this.checked);
             });
+
+            // เมื่อปุ่ม submit ถูกกด
+            $('#submit-btn').on('click', function() {
+                var selectedData = [];
+
+                // Loop ผ่าน checkbox ที่ถูกเลือก
+                $('#myTable input.select-row:checked').each(function() {
+                    var id = this.id;
+                    var plantingDate = $(this).data('planting-date');
+                    var varietiesUsed = $(this).data('varieties-used');
+
+                    selectedData.push({
+                        id: id,
+                        plantingDate: plantingDate,
+                        varietiesUsed: varietiesUsed
+                    });
+                });
+
+                // แสดงผลลัพธ์ใน console
+                console.log(selectedData);
+
+                // เพิ่ม div ลงใน #print
+                $('#print_qr_code .modal-body').empty(); // ล้าง #print ก่อน
+                $('#print_qr_code .modal-body').append('<style type="text/css">#print_qr_code .label-container{width:170px;border:1px solid #b9bebb;padding:10px;text-align:center;background-color:#fff;display:inline-block;height:325px;box-sizing:border-box;page-break-inside:avoid}#print_qr_code .header{background-color:lightgray;padding:10px 0;font-size:18px}#print_qr_code .item-number{font-size:24px;font-weight:700;margin:10px 0}#print_qr_code .item-name{font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;width:100%}#print_qr_code .qr-code img{margin:10px 0 0 0;width:80%}#print_qr_code .barcode img{margin:5px 0 0 0;width:45%}#print_qr_code{width:100%;text-align:center;margin:10px;display:flex;flex-wrap:wrap}@media print{.label-container{}.main{text-align:left;page-break-after:always}@page{size:A4;margin:10mm}}</style>');
+                selectedData.forEach(function(data) {
+                    $('#print_qr_code .modal-body').append(
+                        '<div class="label-container">' +
+                        '<div class="header">' +
+                        '<span>HHT</span>' +
+                        '</div>' +
+                        '<div class="item-number">' +
+                        '<span>' + data.plantingDate + '</span>' +
+                        '</div>' +
+                        '<div class="item-name" id="item-' + data.id + '">' + data.varietiesUsed +
+                        '</div>' +
+                        '<div class="qr-code">' +
+                        '<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://www.propertynext.work/demo/cnb/public/admin/profile/' + data.id  + '&choe=UTF-8" alt="QR Code">' +
+                        '</div>' +
+                        '<div class="barcode">' +
+                        '<img src="https://barcode.tec-it.com/barcode.ashx?data=' + data.id  + '&code=Code128&translate-esc=true&dmsize=Default" alt="Barcode">' +
+                        '</div>' +
+                        '</div>'
+                    );
+                    // $('#print_qr_code .modal-body').append(
+                    //     '<div class="print-item">' +
+                    //     '<h3>ID: ' + data.id + '</h3>' +
+                    //     '<p>Planting Date: ' + data.plantingDate + '</p>' +
+                    //     '<p>Varieties Used: ' + data.varietiesUsed + '</p>' +
+                    //     '</div>'
+                    // );
+                });
+            });
+
         } );
+
         document.getElementById("btnPrint").onclick = function () {
             printElement(document.getElementById("printThis"));
         }
