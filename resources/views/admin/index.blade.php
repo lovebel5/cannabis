@@ -51,6 +51,9 @@
             .modal-content .card-body.card-block img{
               width: 130px;
             }
+            #print_qr{
+                display: block !important;
+            }
         }
 
     </style>
@@ -69,19 +72,12 @@
                 @endif
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="overview-wrap">
-                            <h2 class="title-1">Overview</h2>
-                            <button type="button" class="au-btn au-btn-icon au-btn--green" data-toggle="modal"
-                                    data-target="#scrollmodal">
-                                <i class="zmdi zmdi-plus"></i>add item
-                            </button>
-                            <button class="item"
-                                    data-placement="top" title=""
-                                    data-original-title="" data-toggle="modal"
-                                    data-target="#modal_print_qr_code" id="" type="button">
-                                <i class="fa fa-qrcode"></i>
-
-                            </button>
+                        <div class="overview-wrap justify-content-end">
+                            <h2 class="title-1 d-none">Overview</h2>
+                            <button class="btn btn-danger btn-sm m-1"  data-toggle="modal"
+                                    data-target="#scrollmodal" ><i class="zmdi zmdi-plus"></i> Add item</button>
+                            <button  data-toggle="modal"
+                                     data-target="#modal_print_qr_code" id="submit-btn" type="button" class="btn btn-primary btn-sm m-1">  <i class="fa fa-qrcode"></i> Qr Code</button>
                         </div>
                     </div>
                 </div>
@@ -165,7 +161,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <button type="button" id="submit-btn">Submit</button>
+{{--                            <button type="button" id="submit-btn">Submit</button>--}}
                             </form>
                         </div>
                     </div>
@@ -511,22 +507,22 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticModalLabel"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <div class="text-right w-100">
+                            <button class="btn btn-danger btn-sm m-1" data-dismiss="modal" aria-hidden="true">Close</button>
+                            <button id="btnPrintQr" type="button" class="btn btn-primary btn-sm m-1">Print</button>
+                        </div>
+
+                        <button type="button" class="close d-none" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-danger btn-sm" data-dismiss="modal" aria-hidden="true">Close</button>
-                        <button id="btnPrint" type="button" class="btn btn-primary btn-sm">Print</button>
-                    </div>
-
+                    <div class="modal-body" id="modal-body-qr-code"> </div>
                 </div>
             </div>
         </div>
+
+    </div>
+    <div id="print_qr" class="print_qr" style="display: none">
 
     </div>
     <link rel="stylesheet" href="{{url('location.thailand/dist/jquery.Thailand.min.css')}}">
@@ -741,40 +737,55 @@
 
                 // แสดงผลลัพธ์ใน console
                 console.log(selectedData);
-
+                var css = '<style type="text/css">#print_qr_code .label-container,.print_qr .label-container {width:230px;border:1px solid #b9bebb;padding:10px;text-align:center;background-color:#fff;display:inline-block;height:350px;box-sizing:border-box;page-break-inside:avoid}#print_qr_code .header,.print_qr .header{background-color:lightgray;padding:10px 0;font-size:18px}#print_qr_code .item-number,.print_qr .item-number{font-size:24px;font-weight:700}#print_qr_code .item-name,.print_qr .item-name{font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;width:100%}#print_qr_code .qr-code img,.print_qr .qr-code img{width:60%}#print_qr_code .barcode img,.print_qr .barcode img{margin:5px 0 0 0;width:35%}#print_qr_code{width:100%;text-align:center;margin:10px;display:flex;flex-wrap:wrap}@media print{.label-container{}.main{text-align:left;page-break-after:always}@page{size:A4;margin:10mm}}</style>';
                 // เพิ่ม div ลงใน #print
                 $('#print_qr_code .modal-body').empty(); // ล้าง #print ก่อน
-                $('#print_qr_code .modal-body').append('<style type="text/css">#print_qr_code .label-container{width:170px;border:1px solid #b9bebb;padding:10px;text-align:center;background-color:#fff;display:inline-block;height:325px;box-sizing:border-box;page-break-inside:avoid}#print_qr_code .header{background-color:lightgray;padding:10px 0;font-size:18px}#print_qr_code .item-number{font-size:24px;font-weight:700;margin:10px 0}#print_qr_code .item-name{font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;width:100%}#print_qr_code .qr-code img{margin:10px 0 0 0;width:80%}#print_qr_code .barcode img{margin:5px 0 0 0;width:45%}#print_qr_code{width:100%;text-align:center;margin:10px;display:flex;flex-wrap:wrap}@media print{.label-container{}.main{text-align:left;page-break-after:always}@page{size:A4;margin:10mm}}</style>');
+                $('.print_qr').empty(); // ล้าง #print ก่อน
+
+                $('#print_qr_code .modal-body').append(css);
+                $('.print_qr').append(css);
                 selectedData.forEach(function(data) {
-                    $('#print_qr_code .modal-body').append(
-                        '<div class="label-container">' +
-                        '<div class="header">' +
-                        '<span>HHT</span>' +
-                        '</div>' +
-                        '<div class="item-number">' +
-                        '<span>' + data.plantingDate + '</span>' +
-                        '</div>' +
-                        '<div class="item-name" id="item-' + data.id + '">' + data.varietiesUsed +
-                        '</div>' +
-                        '<div class="qr-code">' +
-                        '<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://www.propertynext.work/demo/cnb/public/admin/profile/' + data.id  + '&choe=UTF-8" alt="QR Code">' +
-                        '</div>' +
-                        '<div class="barcode">' +
-                        '<img src="https://barcode.tec-it.com/barcode.ashx?data=' + data.id  + '&code=Code128&translate-esc=true&dmsize=Default" alt="Barcode">' +
-                        '</div>' +
-                        '</div>'
+                        var html = '<div class="label-container">' +
+                            '<div class="header">' +
+                            '<span>HHT</span>' +
+                            '</div>' +
+                            '<div class="item-number">' +
+                            '<span>' + data.id + '</span>' +
+                            '</div>' +
+                            '<div class="">' + data.plantingDate +
+                            '</div>' +
+                            '<div class="item-name" style="font-size: 12px" id="qr-' + data.id + '">' + data.varietiesUsed +
+                            '</div>' +
+                            '<div class="qr-code">' +
+                            '<img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://www.propertynext.work/demo/cnb/public/admin/profile/' + data.id + '&choe=UTF-8" alt="QR Code">' +
+                            '</div>' +
+                            '<div class="barcode">' +
+                            '<img src="https://barcode.tec-it.com/barcode.ashx?data=' + data.id + '&code=Code128&translate-esc=true&dmsize=Default" alt="Barcode">' +
+                            '</div>' +
+                            '</div>';
+                        $('#print_qr_code .modal-body').append(html);
+                        $('.print_qr').append(html);
+                    }
                     );
-                    // $('#print_qr_code .modal-body').append(
-                    //     '<div class="print-item">' +
-                    //     '<h3>ID: ' + data.id + '</h3>' +
-                    //     '<p>Planting Date: ' + data.plantingDate + '</p>' +
-                    //     '<p>Varieties Used: ' + data.varietiesUsed + '</p>' +
-                    //     '</div>'
-                    // );
-                });
+
             });
 
         } );
+
+
+
+        function adjustFontSize(id) {
+            var item = document.getElementById('qr-' + id);
+            var fontSizeNumber = parseFloat(window.getComputedStyle(item).fontSize);
+            console.log(fontSizeNumber,item.offsetWidth);
+            while (item.offsetWidth > 120) {
+                console.log(1);
+                fontSizeNumber -= 1;
+                item.style.fontSize = fontSizeNumber + 'px';
+            }
+        }
+
+
 
         document.getElementById("btnPrint").onclick = function () {
             printElement(document.getElementById("printThis"));
@@ -793,6 +804,28 @@
             $printSection.innerHTML = "";
             $printSection.appendChild(domClone);
             var title = $('[data-target="#modalQrCode"]').attr('data-original-title');
+
+            window.print();
+        }
+
+
+        document.getElementById("btnPrintQr").onclick = function () {
+            printElement(document.getElementById("print_qr"));
+        }
+        function printElement(elem) {
+            var domClone = elem.cloneNode(true);
+
+            var $printSection = document.getElementById("printSection");
+
+            if (!$printSection) {
+                var $printSection = document.createElement("div");
+                $printSection.id = "printSection";
+                document.body.appendChild($printSection);
+            }
+
+            $printSection.innerHTML = "";
+            $printSection.appendChild(domClone);
+            var title = $('[data-target="#modal_print_qr_code"]').attr('data-original-title');
 
             window.print();
         }
