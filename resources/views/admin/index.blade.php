@@ -681,6 +681,12 @@
         })
         }
         $(document).ready( function () {
+
+            $('.select2').select2({
+                tags: true,
+                tokenSeparators: [',', ' ']
+            });
+
             $('[data-target="#modalQrCode"]').mouseover(function (e) {
                 var id = $(this).attr("id");
                 var size = '250x250';
@@ -737,7 +743,7 @@
 
                 // แสดงผลลัพธ์ใน console
                 console.log(selectedData);
-                var css = '<style type="text/css">#print_qr_code .label-container,.print_qr .label-container {width:230px;border:1px solid #b9bebb;padding:10px;text-align:center;background-color:#fff;display:inline-block;height:350px;box-sizing:border-box;page-break-inside:avoid}#print_qr_code .header,.print_qr .header{background-color:lightgray;padding:10px 0;font-size:18px}#print_qr_code .item-number,.print_qr .item-number{font-size:24px;font-weight:700}#print_qr_code .item-name,.print_qr .item-name{font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;width:100%}#print_qr_code .qr-code img,.print_qr .qr-code img{width:60%}#print_qr_code .barcode img,.print_qr .barcode img{margin:5px 0 0 0;width:35%}#print_qr_code{width:100%;text-align:center;margin:10px;display:flex;flex-wrap:wrap}@media print{.label-container{}.main{text-align:left;page-break-after:always}@page{size:A4;margin:10mm}}</style>';
+                var css = '<style type="text/css">#print_qr_code .label-container,.print_qr .label-container {width:230px;border:1px solid #b9bebb;padding:10px;text-align:center;background-color:#fff;display:inline-block;height:350px;box-sizing:border-box;page-break-inside:avoid}#print_qr_code .header,.print_qr .header{background-color:lightgray;padding:10px 0;font-size:18px}#print_qr_code .item-number,.print_qr .item-number{font-size:24px;font-weight:700}#print_qr_code .item-name,.print_qr .item-name{font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;width:100%}#print_qr_code .qr-code img,.print_qr .qr-code img{width:55%}#print_qr_code .barcode img,.print_qr .barcode img{margin:5px 0 0 0;width:35%}#print_qr_code{width:100%;text-align:center;margin:10px;display:flex;flex-wrap:wrap}@media print{.label-container{}.main{text-align:left;page-break-after:always}@page{size:A4;margin:10mm}}</style>';
                 // เพิ่ม div ลงใน #print
                 $('#print_qr_code .modal-body').empty(); // ล้าง #print ก่อน
                 $('.print_qr').empty(); // ล้าง #print ก่อน
@@ -769,6 +775,8 @@
                     );
 
             });
+
+
 
         } );
 
