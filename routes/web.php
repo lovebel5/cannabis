@@ -42,6 +42,7 @@ Route::prefix('admin')->group(function () {
         Route::get('get-img/{id_img}', [ProfileControllers::class, 'getImageByImageID']);
         Route::get('ajax/{id}', [ProfileControllers::class, 'ajaxGetBasicInformationById']);
     });
+
     Route::prefix('building')->group(function () {
         Route::get('/', [BuildingControllers::class, 'index']);
         Route::get('{id_building}', [BuildingControllers::class, 'getDataBuildingById']);
@@ -51,7 +52,8 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('event')->group(function () {
-//        Route::get('/', [EventControllers::class, 'index']);
+        Route::get('/', [EventControllers::class, 'index']);
+        Route::POST('/inset-for-qr-code', [EventControllers::class, 'insetEventByScanQrCode']);
 //        Route::get('/{id}', [EventControllers::class, 'index']);
         Route::get('/{id}', [EventControllers::class, 'showEventById']);
         Route::post('/inset', [EventControllers::class, 'insetEvent']);

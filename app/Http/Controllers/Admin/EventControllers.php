@@ -35,6 +35,39 @@ class EventControllers
 
     public function index()
     {
+        $var = $this->VariableControllers->getVariable('eventCannabis');
+        return view('admin.event-group', [
+            'var' => $var,
+        ]);
+    }
+
+    public function insetEventByScanQrCode(Request $input)
+    {
+
+        $dataInput['json'] = [
+            'date' => $input->get('date'),
+            'data' => [
+                'tags' => $input->get('tags'),
+                'message' => $input->get('message'),
+                'img' => '-',
+                'user' => '0',
+            ]
+        ];
+
+        $data = [
+            'id_basic_info' => $input->get('id_basic_info'),
+            'val_json' => json_encode($dataInput['json']),
+        ];
+
+        if($this->EventRepositories->save($data)){
+            return response()->json([
+                'date' => $input,
+            ]);
+        } else {
+            return response()->json([
+                'Error' => $input,
+            ]);
+        }
 
     }
 
