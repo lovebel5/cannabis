@@ -41,6 +41,9 @@ class ProfileControllers
         }
 
         $var = $this->VariableControllers->getVariable('var');
+        $head = $this->VariableControllers->getVariable('head');
+        $head = $this->VariableControllers->getVariable('head');
+
         $soilType = $this->VariableControllers->getVariable('soil');
         $status = $this->VariableControllers->getVariable('status');
         $building = $this->VariableControllers->getVariable('building');
@@ -55,6 +58,7 @@ class ProfileControllers
             'data' => $result,
             'var' => $var,
             'status' => $status,
+            'head_project' => $head,
             'soil_type' => $soilType,
             'img' => $img,
             'building' => $building,

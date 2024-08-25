@@ -60,7 +60,6 @@
                                                     @endforeach
                                             </select>
                                         </div>
-
                                         <div class="col-12 col-md-3">
                                                 <!-- รหัสการทดลอง -->
                                             <small class="form-text text-muted">{{$var['name']['trial_code']}}</small>
@@ -77,14 +76,28 @@
                                         </div>
                                         <!-- หัวหน้าโรงเรือน -->
                                         <div class="col-12 col-md-3">
-{{--                                            {{dd($data->value)}}--}}
+{{--                                            {{dd($head_project)}}--}}
                                             <small class="form-text text-muted">{{$var['name']['expert']}}</small>
                                             <select name="input[expert][]" class="form-control select2" multiple="multiple">
+                                                <?php $selectedValues = []; ?>
+
                                                 @if(isset($data->value['expert']))
-                                                @foreach ($data->value['expert'] as $value)
-                                                    <option value="{{$value}}" selected>{{$value}}</option>
-                                                @endforeach
+                                                    {{-- แสดงค่าที่ถูกเลือกแล้ว --}}
+                                                    @foreach ($data->value['expert'] as $value)
+                                                        <?php
+                                                        echo '<option value="' . htmlspecialchars($value) . '" selected>' . htmlspecialchars($value) . '</option>';
+                                                        $selectedValues[] = $value;
+                                                        ?>
+                                                    @endforeach
                                                 @endif
+                                                {{-- แสดงตัวเลือกจาก $head_project โดยหลีกเลี่ยงค่าที่ซ้ำ --}}
+                                                @foreach ($head_project as $key => $value)
+                                                    @if (!in_array($key, $selectedValues))
+                                                        <?php
+                                                        echo '<option value="' . htmlspecialchars($value) . '">' . htmlspecialchars($value) . '</option>';
+                                                        ?>
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                         <!-- เจ้าหน้าที่ประจำโรงเรื่อน -->
