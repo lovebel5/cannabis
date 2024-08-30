@@ -1,6 +1,6 @@
 @extends('admin.layout.teampage')
 
-@section('title', 'หน้าแรก')
+@section('title', __('message.home'))
 
 @section('content')
     <style>

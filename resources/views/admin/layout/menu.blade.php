@@ -22,7 +22,10 @@
     <nav class="navbar-mobile">
         <div class="container-fluid">
             <ul class="navbar-mobile__list list-unstyled">
-                <li class="has-sub">
+                <li>
+                    <a href="{{url('')}}">🇺🇸🇹🇭🇲🇲</a>
+                </li>
+                <li>
                     <a href="{{url('admin/building')}}">
                         <i class="fas fa-home"></i>{{ __('message.warehouse') }}
                     </a>
@@ -151,6 +154,9 @@
                             <a href="{{url('admin/building')}}"><i class="fa fa-home"></i>Building</a>
                         </li>
                     </ul>
+                </li>
+                <li class="text-center">
+                    <a href="{{url('')}}">🇺🇸🇹🇭🇲🇲</a>
                 </li>
                 <li>
                     <a href="{{url('admin/building')}}">

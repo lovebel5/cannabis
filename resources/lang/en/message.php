@@ -2,6 +2,7 @@
 
 return [
     'welcome' => 'welcome',
+    'home' => 'Home',
     'trial_code' => 'Trial Code',
     'objective' => 'Objective',
     'expert' => 'Warehouse Head',

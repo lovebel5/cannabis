@@ -127,8 +127,8 @@
                                                     <th>#</th>
                                                     <th>{{ __('message.date') }}</th>
                                                     <th>{{ __('message.humidity') }}</th>
-                                                    <th>{{ __('message.Temperature') }}</th>
-                                                    <th>{{ __('message.Temperature') }}</th>
+                                                    <th>{{ __('message.temperature') }}</th>
+                                                    <th>{{ __('message.watering') }}</th>
                                                     <th>{{ __('message.fertilizing') }}</th>
                                                     <th>{{ __('message.type_soil') }}</th>
                                                     <th>{{ __('message.expert') }}</th>
