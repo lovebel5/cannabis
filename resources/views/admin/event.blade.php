@@ -346,10 +346,10 @@
                                                   enctype="multipart/form-data" id="comment-form">
                                                 <div class="new-comment">
                                                     <div class="tags-container">
-                                                        @foreach ($var as  $value)
-                                                        <button type="button" class="tag-button"
-                                                                onclick="addTag('{{$value}}', this)">{{$value}}
-                                                        </button>
+                                                        @foreach (__('message.tags') as $key => $value)
+                                                            <button type="button" class="tag-button" @if($key == 'selling') style="background-color: #ff0000;" @endif
+                                                            onclick="addTag('{{ $value }}', this)">{{ $value }}
+                                                            </button>
                                                         @endforeach
                                                     </div>
 
@@ -398,9 +398,7 @@
                                                     </div>
                                                     @if(!is_null($val['data']['message']) || !is_null($val['data']['tags']))
                                                     <div class="comment">
-
                                                         <p>{{$val['data']['message']}}</p>
-
                                                         @if(!is_null($val['data']['tags']))
                                                             @foreach ($tag as $value)
                                                                 <button class="button"><p>{{$value}}</p></button>
@@ -451,7 +449,7 @@
                                             <i class="avatar | small">
                                                 <img src="https://assets.codepen.io/285131/hat-man.png"/>
                                             </i>
-                                            <span><a href="#">Planting Date :</a> {{$info->value['planting_date']}}  <a
+                                            <span><a href="#">{{ __('message.planting_date') }} :</a> {{$info->value['planting_date']}}  <a
                                                     href="#">📚 </a>  <time datetime="{{$info->value['planting_date']}}"></time></span>
                                         </div>
                                     </li>

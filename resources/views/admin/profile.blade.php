@@ -22,7 +22,7 @@
                         @endif
                         <div class="card">
                             <div class="card-header">
-                                <strong>Basic Form</strong> Elements
+                                <strong>Basic Form</strong>
                             </div>
                             <div class="card-body card-block">
                                 <div class="col-12 text-left">
@@ -35,7 +35,7 @@
                                     <div class="col-12 col-md-3">
                                            <!-- วันที่ปลูก -->
                                             <small
-                                                class="form-text text-muted">{{$var['name']['planting_date']}}</small>
+                                                class="form-text text-muted">{{ __('message.planting_date') }}</small>
                                             <input type="date"
                                                    value="{{$data->value['planting_date']}}"
     {{--                                                   value="{{date('d-m-Y')}}"--}}
@@ -45,97 +45,125 @@
                                         <div class="col-12 col-md-3">
                                             <!-- พันะุ์ที่ใช้ -->
                                             <small
-                                                class="form-text text-muted">{{$var['name']['varieties_used']}}</small>
+                                                class="form-text text-muted">{{ __('message.varieties_used') }}</small>
                                             <input type="text"
                                                    value="{{$data->value['varieties_used']}}"
                                                    name="input[{{$var['input']['varieties_used']}}]"
-                                                   placeholder="Text" class="form-control">
+                                                   placeholder="{{ __('message.varieties_used') }}" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
                                             <small
-                                                class="form-text text-muted">{{$var['name']['experiment_name']}}</small>
+                                                class="form-text text-muted">{{ __('message.warehouse') }}</small>
                                             <select name="input[{{$var['input']['experiment_name']}}]" class="form-control text-uppercase">
                                                     @foreach ($building as $value)
                                                         <option  value="{{$value}}" {{($data->value['experiment_name'] == $value) ? 'selected':''}}>{{$value}}</option>
                                                     @endforeach
                                             </select>
                                         </div>
+
                                         <div class="col-12 col-md-3">
                                                 <!-- รหัสการทดลอง -->
-                                            <small class="form-text text-muted">{{$var['name']['trial_code']}}</small>
+                                            <small class="form-text text-muted">{{ __('message.trial_code') }}</small>
                                             <input type="text" value="{{$data->value['trial_code']}}"
-                                                   name="input[{{$var['input']['trial_code']}}]" placeholder="Text"
+                                                   name="input[{{$var['input']['trial_code']}}]" placeholder="{{ __('message.trial_code') }}"
+                                                   class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <!-- วันที่งอก -->
+                                            <small
+                                                class="form-text text-muted">{{ __('message.germination_date') }}</small>
+                                            <input type="date"
+                                                   value="{{$data->value['germination_date']}}"
+                                                   name="input[{{$var['input']['germination_date']}}]"
+                                                   placeholder="{{ __('message.germination_date') }}" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <small class="form-text text-muted">{{ __('message.objective') }}</small>
+                                            <input type="text" value="{{$data->value['objective']}}"
+                                                   name="input[{{$var['input']['objective']}}]" placeholder="{{ __('message.objective') }}"
                                                    class="form-control">
                                         </div>
 
-                                        <div class="col-12 col-md-3">
-                                            <small class="form-text text-muted">{{$var['name']['objective']}}</small>
-                                            <input type="text" value="{{$data->value['objective']}}"
-                                                   name="input[{{$var['input']['objective']}}]" placeholder="Text"
-                                                   class="form-control">
-                                        </div>
                                         <!-- หัวหน้าโรงเรือน -->
                                         <div class="col-12 col-md-3">
-{{--                                            {{dd($head_project)}}--}}
-                                            <small class="form-text text-muted">{{$var['name']['expert']}}</small>
+                                            <small class="form-text text-muted">{{ __('message.expert') }}</small>
                                             <select name="input[expert][]" class="form-control select2" multiple="multiple">
                                                 <?php $selectedValues = []; ?>
 
+                                                {{-- แสดงค่าที่ถูกเลือกแล้ว --}}
                                                 @if(isset($data->value['expert']))
-                                                    {{-- แสดงค่าที่ถูกเลือกแล้ว --}}
                                                     @foreach ($data->value['expert'] as $value)
-                                                        <?php
-                                                        echo '<option value="' . htmlspecialchars($value) . '" selected>' . htmlspecialchars($value) . '</option>';
-                                                        $selectedValues[] = $value;
-                                                        ?>
+                                                        <option value="{{ htmlspecialchars($value) }}" selected>{{ htmlspecialchars($value) }}</option>
+                                                        <?php $selectedValues[] = $value; ?>
                                                     @endforeach
                                                 @endif
+
                                                 {{-- แสดงตัวเลือกจาก $head_project โดยหลีกเลี่ยงค่าที่ซ้ำ --}}
                                                 @foreach ($head_project as $key => $value)
-                                                    @if (!in_array($key, $selectedValues))
-                                                        <?php
-                                                        echo '<option value="' . htmlspecialchars($value) . '">' . htmlspecialchars($value) . '</option>';
-                                                        ?>
+                                                    @if (!in_array($value, $selectedValues))
+                                                        <option value="{{ htmlspecialchars($value) }}">{{ htmlspecialchars($value) }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
+
                                         </div>
                                         <!-- เจ้าหน้าที่ประจำโรงเรื่อน -->
                                         <div class="col-12 col-md-3">
                                             <small
-                                                class="form-text text-muted">{{$var['name']['coworker']}}</small>
+                                                class="form-text text-muted">{{ __('message.coworker') }}</small>
                                             <select name="input[coworker][]" class="form-control select2" multiple="multiple">
+                                                <?php $selectedCoworker = []; ?>
+
+                                                {{-- แสดงค่าที่ถูกเลือกแล้ว --}}
                                                 @if(isset($data->value['coworker']))
                                                     @foreach ($data->value['coworker'] as $value)
-                                                        <option value="{{$value}}" selected>{{$value}}</option>
+                                                        <option value="{{ htmlspecialchars($value) }}" selected>{{ htmlspecialchars($value) }}</option>
+                                                        <?php $selectedCoworker[] = $value; ?>
                                                     @endforeach
                                                 @endif
-                                            </select>
-                                        </div>
 
+                                                {{-- แสดงตัวเลือกจาก $staff โดยหลีกเลี่ยงค่าที่ซ้ำ --}}
+                                                @foreach ($staff as $key => $value)
+                                                    @if (!in_array($value, $selectedCoworker))
+                                                        <option value="{{ htmlspecialchars($value) }}">{{ htmlspecialchars($value) }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+
+                                        </div>
                                         <div class="col-12 col-md-3">
-                                            <!-- po-partner -->
+                                            <!-- วันปลูกซ่อมหรือถอดแยก -->
                                             <small
-                                                class="form-text text-muted">{{$var['name']['research_center']}}</small>
+                                                class="form-text text-muted">{{ __('message.repair_day') }}</small>
+                                            <input type="date"
+                                                   value="{{$data->value['repair_day']}}"
+                                                   name="input[{{$var['input']['repair_day']}}]"
+                                                   placeholder="{{ __('message.repair_day') }}" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <!-- co-partner -->
+                                            <small
+                                                class="form-text text-muted">{{ __('message.co_partner') }}</small>
                                             <input type="text"
                                                    value="{{$data->value['research_center']}}"
-                                                   name="input[{{$var['input']['research_center']}}]" placeholder="Text"
+                                                   name="input[{{$var['input']['research_center']}}]" placeholder="{{ __('message.co_partner') }}"
                                                    class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
                                             <!-- ฤดี-ปี -->
-                                            <small class="form-text text-muted">{{$var['name']['year']}}</small>
+                                            <small class="form-text text-muted">{{ __('message.year') }}</small>
                                             <input type="text" value="{{$data->value['year']}}"
-                                                   name="input[{{$var['input']['year']}}]" placeholder="Text"
+                                                   name="input[{{$var['input']['year']}}]" placeholder="{{ __('message.year') }}"
                                                    class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
                                             <!-- สถานที่ -->
-                                            <small class="form-text text-muted">{{$var['name']['address_land']}}</small>
+                                            <small class="form-text text-muted">{{ __('message.address_land') }}</small>
                                             <input type="text" value="{{$data->value['address_land']}}"
-                                                   name="input[{{$var['input']['address_land']}}]" placeholder="Text"
+                                                   name="input[{{$var['input']['address_land']}}]" placeholder="{{ __('message.address_land') }}"
                                                    class="form-control">
                                         </div>
+                                      {{--
                                         <div class="col-12 col-md-3">
                                             <!-- พิกัด -->
                                             <small class="form-text text-muted">{{$var['name']['coordinates']}}</small>
@@ -171,7 +199,7 @@
                                                    name="input[{{$var['input']['plow']}}]"
                                                    placeholder="Text" class="form-control">
                                         </div>
-                                        <div class="col-12 col-md-3">
+                                       <div class="col-12 col-md-3">
                                             <!-- แผนการทอดลอง -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['trial_plan']}}</small>
@@ -180,26 +208,7 @@
                                                    name="input[{{$var['input']['trial_plan']}}]"
                                                    placeholder="Text" class="form-control">
                                         </div>
-                                        <div class="col-12 col-md-3">
-                                            <!-- วิธีการปลูก -->
-                                            <small
-                                                class="form-text text-muted">{{$var['name']['how_to_plant']}}</small>
-                                            <input type="text"
-                                                   value="{{$data->value['how_to_plant']}}"
-                                                   name="input[{{$var['input']['how_to_plant']}}]"
-                                                   placeholder="Text" class="form-control">
-                                        </div>
-
-                                        <div class="col-12 col-md-3">
-                                            <!-- วันที่งอก -->
-                                            <small
-                                                class="form-text text-muted">{{$var['name']['germination_date']}}</small>
-                                            <input type="date"
-                                                   value="{{$data->value['germination_date']}}"
-                                                   name="input[{{$var['input']['germination_date']}}]"
-                                                   placeholder="Text" class="form-control">
-                                        </div>
-                                        <div class="col-12 col-md-3">
+                                          <div class="col-12 col-md-3">
                                             <!-- อัตราปลูก -->
                                             <small
                                                 class="form-text text-muted">{{$var['name']['planting_rate']}}</small>
@@ -208,51 +217,67 @@
                                                    name="input[{{$var['input']['planting_rate']}}]"
                                                    placeholder="Text" class="form-control">
                                         </div>
-
+                                          --}}
                                         <div class="col-12 col-md-3">
-                                            <!-- การเตรียมเมล็ดพันธ์ -->
+                                            <!-- วันเก็บเกี่ยว -->
                                             <small
-                                                class="form-text text-muted">{{$var['name']['seed_preparation']}}</small>
-                                            <input type="text"
-                                                   value="{{$data->value['seed_preparation']}}"
-                                                   name="input[{{$var['input']['seed_preparation']}}]"
-                                                   placeholder="Text" class="form-control">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                        <!-- วันปลูกซ่อมหรือถอดแยก -->
-                                            <small
-                                                class="form-text text-muted">{{$var['name']['repair_day']}}</small>
-                                            <input type="date"
-                                                   value="{{$data->value['repair_day']}}"
-                                                   name="input[{{$var['input']['repair_day']}}]"
-                                                   placeholder="Text" class="form-control">
-                                        </div>
-                                        <div class="col-12 col-md-3">
-                                        <!-- วันเก็บเกี่ยว -->
-                                            <small
-                                                class="form-text text-muted">{{$var['name']['harvest_day']}}</small>
+                                                class="form-text text-muted">{{ __('message.harvest_day') }}</small>
                                             <input type="date"
                                                    value="{{$data->value['harvest_day']}}"
                                                    name="input[{{$var['input']['harvest_day']}}]"
-                                                   placeholder="Text" class="form-control">
+                                                   placeholder="{{ __('message.harvest_day') }}" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <!-- วิธีการปลูก -->
+                                            <small
+                                                class="form-text text-muted">{{ __('message.how_to_plant') }}</small>
+                                            <input type="text"
+                                                   value="{{$data->value['how_to_plant']}}"
+                                                   name="input[{{$var['input']['how_to_plant']}}]"
+                                                   placeholder="{{ __('message.how_to_plant') }}" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <!-- การเตรียมเมล็ดพันธ์ -->
+                                            <small
+                                                class="form-text text-muted">{{ __('message.seed_preparation') }}</small>
+                                            <input type="text"
+                                                   value="{{$data->value['seed_preparation']}}"
+                                                   name="input[{{$var['input']['seed_preparation']}}]"
+                                                   placeholder="{{ __('message.seed_preparation') }}" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-3">
                                         <!-- ประเภทดิน -->
+
                                             <small
-                                                class="form-text text-muted">{{$var['name']['soil_type']}}</small>
+                                                class="form-text text-muted">{{ __('message.soil_type') }}</small>
                                             <select name="input[{{$var['input']['soil_type']}}]" class="form-control">
-                                                @foreach ($soil_type as $key => $value)
-                                                    @if($data->value['soil_type'] == $key)
-                                                        <option value="{{$key}}" selected>{{$value}}</option>
-                                                    @else
-                                                        <option value="{{$key}}">{{$value}}</option>
+                                                <?php $selectedSoil = []; ?>
+                                                @if(isset($data->value['soil_type']))
+                                                    {{-- แสดงค่าที่ถูกเลือกแล้ว --}}
+                                                    @foreach (__('message.soil') as $key => $value)
+                                                        @if($data->value['soil_type'] === $key)
+                                                            <?php
+                                                            echo '<option value="' . htmlspecialchars($key) . '" selected>' . htmlspecialchars($value) . '</option>';
+                                                            $selectedSoil[] = $key;
+                                                            ?>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+
+                                                {{-- แสดงตัวเลือกอื่น ๆ ที่ยังไม่ถูกเลือก --}}
+                                                @foreach (__('message.soil') as $key => $value)
+                                                    @if (!in_array($key, $selectedSoil))
+                                                        <?php
+                                                        echo '<option value="' . htmlspecialchars($key) . '">' . htmlspecialchars($value) . '</option>';
+                                                        ?>
                                                     @endif
                                                 @endforeach
                                             </select>
+
                                         </div>
                                         <div class="col col-md-12">
                                             <small
-                                                class="form-text text-muted">Gallery :</small>
+                                                class="form-text text-muted">{{ __('message.gallery') }} :</small>
                                             <div class="lightbox-gallery">
                                                 <div class="container">
                                                     <div class="row photos">
@@ -267,7 +292,7 @@
 
                                         <div class="col col-md-3">
                                             <small
-                                                class="form-text text-muted">Photos (Max : 2 MB.) Extension not allowed, please choose a JPEG or PNG file.</small>
+                                                class="form-text text-muted">{{ __('message.remark_gallery') }}</small>
                                         </div>
 
                                         <div class="col-12 col-md-12">
@@ -276,21 +301,21 @@
                                         <div class="col col-md-12"></div>
                                         <div class="col col-md-3">
                                             <small
-                                                class="form-text text-muted">บันทึกเตือนความจำ</small>
+                                                class="form-text text-muted">{{ __('message.note') }}</small>
                                         </div>
 
                                         <div class="col-12 col-md-12">
-                                            <textarea name="input[note]" id="textarea-input" rows="9" placeholder="Note..." class="form-control">{{$data->value['note']}}</textarea>
+                                            <textarea name="input[note]" id="textarea-input" rows="9" placeholder="{{ __('message.note') }}" class="form-control">{{$data->value['note']}}</textarea>
                                         </div>
 
                                     </div>
                                     {{ csrf_field() }}
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-dot-circle-o"></i> Submit
+                                            <i class="fa fa-dot-circle-o"></i> {{ __('message.submit') }}
                                         </button>
                                         <button onclick="location.reload();" type="reset" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-ban"></i> Reset
+                                            <i class="fa fa-ban"></i> {{ __('message.reset') }}
                                         </button>
                                     </div>
                                 </form>
@@ -302,16 +327,16 @@
                                             <table class="table table-borderless table-data3">
                                                 <thead>
                                                 <tr>
-                                                    <th>ลำดับ</th>
-                                                    <th>วันที่<sup class="text-uppercase">[โรงเรือน]</sup></th>
-                                                    <th>ความชื้น</th>
-                                                    <th>อุณหภูมิ</th>
-                                                    <th>การให้น้ำ</th>
-                                                    <th>การให้ปุ๋ย</th>
-                                                    <th>รหัสดิน</th>
-                                                    <th>หัวหน้าโรงเรือน</th>
-                                                    <th>หัวหน้าโรงเรือน</th>
-                                                    <th>Note</th>
+                                                    <th>{{ __('message.no') }}</th>
+                                                    <th>{{ __('message.date') }}<sup class="text-uppercase">[{{ __('message.greenhouse') }}]</sup></th>
+                                                    <th>{{ __('message.humidity') }}</th>
+                                                    <th>{{ __('message.temperature') }}</th>
+                                                    <th>{{ __('message.watering') }}</th>
+                                                    <th>{{ __('message.fertilizing') }}</th>
+                                                    <th>{{ __('message.type_soil') }}</th>
+                                                    <th>{{ __('message.expert') }}</th>
+                                                    <th>{{ __('message.note') }}</th>
+
                                                 </tr>
                                                 </thead>
                                                 <tbody>

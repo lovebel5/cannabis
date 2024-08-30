@@ -24,6 +24,7 @@ class IndexControllers
     {
         $var = $this->VariableControllers->getVariable('var');
         $head = $this->VariableControllers->getVariable('head');
+        $staff = $this->VariableControllers->getVariable('staff');
         $soilType = $this->VariableControllers->getVariable('soil');
         $status = $this->VariableControllers->getVariable('status');
         $building = $this->VariableControllers->getVariable('building');
@@ -34,6 +35,7 @@ class IndexControllers
             'name' => $var['name'],
             'status' => $status,
             'head_project' => $head,
+            'staff' => $staff,
             'soil_type' => $soilType,
             'building' => $building,
             'basicInformation' => $basicInformation,

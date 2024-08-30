@@ -1,6 +1,6 @@
 @extends('admin.layout.teampage')
 
-@section('title', 'Event')
+@section('title', __('message.event') )
 
 @section('content')
     <style>
@@ -110,7 +110,7 @@
                         @endif
                         <div class="card">
                             <div class="card-header">
-                                <strong>QR Code Scanner</strong>
+                                <strong>{{ __('message.qr_code_scanner') }}</strong>
                             </div>
                             <div class="container">
                                 <h2 id="title" class="text-center">QR Code Scanner</h2>
@@ -120,14 +120,14 @@
                                         <div class="new-comment">
                                             <form id="results-list">
                                                 <div class="tags-container">
-                                                    @foreach ($var as $value)
-                                                        <button type="button" class="tag-button"
+                                                    @foreach (__('message.tags') as $key => $value)
+                                                        <button type="button" class="tag-button" @if($key == 'selling') style="background-color: #ff0000;" @endif
                                                                 onclick="addTag('{{ $value }}', this)">{{ $value }}
                                                         </button>
                                                     @endforeach
                                                 </div>
                                                 <input type="text" id="text-input" name="message"
-                                                       placeholder="Add a comment..." class="form-control">
+                                                       placeholder="{{ __('message.add_comment') }}" class="form-control">
                                                 <div id="selected-tags" class="selected-tags"></div>
                                                 <input type="hidden" id="tags-input" name="tags">
                                                 <input type="hidden" value="" name="id_basic_info"/>
@@ -135,7 +135,7 @@
                                                     {{--                                                    <button type="submit" class="btn btn-success btn-sm"><i--}}
                                                     {{--                                                            class="fas fa-save"></i> Save--}}
                                                     {{--                                                    </button>--}}
-                                                    <button type="button" id="startButton">เริ่มสแกน QR Code</button>
+                                                    <button type="button" id="startButton">{{ __('message.start_scan_qr_code') }}</button>
                                                 </div>
                                                 {{ csrf_field() }}
                                             </form>

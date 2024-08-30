@@ -24,16 +24,16 @@
             <ul class="navbar-mobile__list list-unstyled">
                 <li class="has-sub">
                     <a href="{{url('admin/building')}}">
-                        <i class="fas fa-home"></i>Warehouse
+                        <i class="fas fa-home"></i>{{ __('message.warehouse') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{url('admin/cannabis-plant')}}">
-                        <i class="fas fa-leaf"></i>Cannabis Plant</a>
+                        <i class="fas fa-leaf"></i>{{ __('message.cannabis_plant') }}</a>
                 </li>
                 <li>
                     <a href="{{url('admin/event')}}">
-                        <i class="fas fa-leaf"></i>Event</a>
+                        <i class="fas fa-leaf"></i>{{ __('message.event') }}</a>
                 </li>
                 <div class="d-none">
                     <li>
@@ -154,16 +154,16 @@
                 </li>
                 <li>
                     <a href="{{url('admin/building')}}">
-                        <i class="fas fa-home"></i>Warehouse
+                        <i class="fas fa-home"></i>{{ __('message.warehouse') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{url('admin/cannabis-plant')}}">
-                        <i class="fas fa-leaf"></i>Cannabis Plant</a>
+                        <i class="fas fa-leaf"></i>{{ __('message.cannabis_plant') }}</a>
                 </li>
                 <li>
                     <a href="{{url('admin/event')}}">
-                        <i class="fas fa-leaf"></i>Event</a>
+                        <i class="fas fa-leaf"></i>{{ __('message.event') }}</a>
                 </li>
                 <div class="d-none">
                     <li>

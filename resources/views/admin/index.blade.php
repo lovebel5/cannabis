@@ -75,9 +75,9 @@
                         <div class="overview-wrap justify-content-end">
                             <h2 class="title-1 d-none">Overview</h2>
                             <button class="btn btn-danger btn-sm m-1"  data-toggle="modal"
-                                    data-target="#scrollmodal" ><i class="zmdi zmdi-plus"></i> Add item</button>
+                                    data-target="#scrollmodal" ><i class="zmdi zmdi-plus"></i> {{ __('message.add_item') }}</button>
                             <button  data-toggle="modal"
-                                     data-target="#modal_print_qr_code" id="submit-btn" type="button" class="btn btn-primary btn-sm m-1">  <i class="fa fa-qrcode"></i> Qr Code</button>
+                                     data-target="#modal_print_qr_code" id="submit-btn" type="button" class="btn btn-primary btn-sm m-1">  <i class="fa fa-qrcode"></i> {{ __('message.qr_code') }}</button>
                         </div>
                     </div>
                 </div>
@@ -90,12 +90,12 @@
                                 <thead>
                                 <tr>
                                     <th><input type="checkbox" id="select-all"></th> <!-- คอลัมน์ checkbox -->
-                                    <th class="text-center">Modify</th>
-                                    <th>#ID</th>
-                                    <th style="width: 100px">{{$name['experiment_name']}}</th>
-                                    <th>{{$name['trial_code']}}</th>
-                                    <th class="">{{$name['varieties_used']}}</th>
-                                    <th class="">{{$name['planting_date']}}</th>
+                                    <th class="text-center">{{ __('message.modify') }}</th>
+                                    <th>{{ __('message.id_code') }}</th>
+                                    <th style="width: 100px">{{ __('message.address_land') }}</th>
+                                    <th>{{ __('message.trial_code') }}</th>
+                                    <th class="">{{ __('message.varieties_used') }}</th>
+                                    <th class="">{{ __('message.planting_date')}}</th>
                                     <!-- <th class="text-right">{{$name['status']}}</th> -->
                                     <!-- <th class="text-right">Updated At</th> -->
 
@@ -227,7 +227,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticModalLabel">แบบบันทึกข้อมูลงานวิจัย</h5>
+                    <h5 class="modal-title" id="staticModalLabel">{{ __('message.plant_information_form') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -240,7 +240,7 @@
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input"
-                                               class=" form-control-label">{{$name['planting_date']}}</label>
+                                               class=" form-control-label">{{ __('message.planting_date') }}</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input type="date" name="input[{{$input['planting_date']}}]"
@@ -252,7 +252,7 @@
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input"
-                                               class=" form-control-label">{{$name['number_plants']}}</label>
+                                               class=" form-control-label">{{ __('message.number_plants') }}</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input required type="number" id="text-input" name="input[{{$input['number_plants']}}]"
@@ -262,11 +262,11 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label class=" form-control-Radioslabel">{{$name['varieties_used']}}</label>
+                                        <label class=" form-control-Radioslabel">{{ __('message.varieties_used') }}</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input required type="text" name="input[{{$input['varieties_used']}}]"
-                                               placeholder="{{$name['varieties_used']}}"
+                                               placeholder="{{ __('message.varieties_used') }}"
                                                class="form-control">
                                         <small class="form-text text-muted">This is a help </small>
                                     </div>
@@ -274,11 +274,11 @@
 
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label class=" form-control-Radioslabel">{{$name['experiment_name']}}</label>
+                                        <label class=" form-control-Radioslabel">{{ __('message.warehouse') }}</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <select name="input[{{$input['experiment_name']}}]"  class="form-control text-uppercase">expert
-                                            <option selected value="">โปรดเลือก</option>
+                                            <option selected value="">{{ __('message.please_select') }}</option>
                                             @foreach ($building as $index => $value)
                                                 <option value="{{$value}}">{{$value}}</option>
                                             @endforeach
@@ -288,34 +288,12 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="text-input"
-                                               class=" form-control-label">{{$name['trial_code']}}</label>
-                                    </div>
-                                    <div class="col-12 col-md-9">
-                                        <input type="text" id="text-input" name="input[{{$input['trial_code']}}]"
-                                               placeholder="{{$name['trial_code']}}" class="form-control">
-                                        <small class="form-text text-muted">This is a help </small>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="text-input"
-                                               class=" form-control-label">{{$name['objective']}}</label>
-                                    </div>
-                                    <div class="col-12 col-md-9">
-                                        <input type="text" id="text-input" name="input[{{$input['objective']}}]"
-                                               placeholder="{{$name['objective']}}" class="form-control">
-                                        <small class="form-text text-muted">This is a help </small>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="select" class=" form-control-label">{{$name['expert']}}</label>
+                                        <label for="select" class=" form-control-label">{{ __('message.expert') }}</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <select name="input[{{$input['expert']}}][]" class="form-control select2"  multiple="multiple" >
                                             @foreach ($head_project as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
+                                                <option value="{{$value}}">{{$value}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -323,46 +301,65 @@
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input"
-                                               class=" form-control-label">{{$name['coworker']}}</label>
+                                               class=" form-control-label">{{ __('message.coworker') }}</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <select name="input[{{$input['coworker']}}][]" class="form-control select2"  multiple="multiple" id="head_project">
+                                            @foreach ($staff as $key => $value)
+                                                <option value="{{$value}}">{{$value}}</option>
+                                            @endforeach
                                         </select>
                                         <small class="form-text text-muted">This is a help </small>
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="email-input"
-                                               class=" form-control-label">{{$name['research_center']}}</label>
+                                        <label for="text-input"
+                                               class=" form-control-label">{{ __('message.trial_code') }}</label>
                                     </div>
-                                    <div class="col-12 col-md-4">
-                                        <small class="help-block form-text">{{$name['research_center']}} </small>
-                                        <input type="text" name="input[{{$input['research_center']}}]"
-                                               placeholder="{{$name['research_center']}}" class="form-control">
-                                    </div>
-                                    <div class="col-12 col-md-5">
-                                        <small class="help-block form-text">{{$name['year']}}</small>
-                                        <input type="text" name="input[{{$input['year']}}]"
-                                               placeholder="{{$name['year']}}" class="form-control">
+                                    <div class="col-12 col-md-9">
+                                        <input type="text" id="text-input" name="input[{{$input['trial_code']}}]"
+                                               placeholder="{{ __('message.trial_code') }}" class="form-control">
+                                        <small class="form-text text-muted">This is a help </small>
                                     </div>
                                 </div>
-
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input"
+                                               class=" form-control-label">{{ __('message.objective') }}</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="text" id="text-input" name="input[{{$input['objective']}}]"
+                                               placeholder="{{ __('message.objective') }}" class="form-control">
+                                        <small class="form-text text-muted">This is a help </small>
+                                    </div>
+                                </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="email-input"
-                                               class=" form-control-label">{{$name['address_land']}}</label>
+                                               class=" form-control-label">{{ __('message.research_center') }}</label>
                                     </div>
-                                    <div class="col-12 col-md-4" id="address" class="demo" autocomplete="off">
-                                        <small class="form-text text-muted">{{$name['address_land']}}</small>
-                                        <input name="input[{{$input['address_land']}}]" class="input-address"
-                                               type="text" placeholder="{{$name['address_land']}}">
-                                        <div id="address-output" class="uk-margin"></div>
+                                    <div class="col-12 col-md-4">
+                                        <small class="help-block form-text">{{ __('message.research_center') }}</small>
+                                        <input type="text" name="input[{{$input['research_center']}}]"
+                                               placeholder="{{ __('message.co_partner') }}" class="form-control">
+                                    </div>
+                                    <div class="col-12 col-md-5">
+                                        <small class="help-block form-text">{{ __('message.year') }}</small>
+                                        <input type="text" name="input[{{$input['year']}}]"
+                                               placeholder="{{ __('message.year') }}" class="form-control">
+                                    </div>
+                                </div>
+ {{--                            พื้นที่
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="email-input"
+                                               class=" form-control-label">{{ __('message.address_land') }}</label>
                                     </div>
                                     <div class="col-12 col-md-5">
                                         <small class="form-text text-muted">{{$name['coordinates']}}</small>
                                         <input type="text" id="text-input" name="input[{{$input['coordinates']}}]"
-                                               placeholder="{{$name['coordinates']}}" class="form-control">
+                                               placeholder="{{ __('message.Lat_Long') }}" class="form-control" value="7.9039729,98.3793559">
                                     </div>
 
                                 </div>
@@ -416,54 +413,60 @@
                                         <small class="form-text text-muted">This is a help </small>
                                     </div>
                                 </div>
+--}}
                                 <div class="row form-group">
                                     <div class="col-12 col-md-4">
-                                        <small class="form-text text-muted">{{$name['germination_date']}}</small>
+                                        <small class="form-text text-muted">{{ __('message.germination_date') }}</small>
                                         <input type="date" name="input[{{$input['germination_date']}}]"
                                                placeholder="{{$name['germination_date']}}"
                                                class="form-control">
                                     </div>
                                     <div class="col-12 col-md-4">
-                                        <small class="form-text text-muted">{{$name['how_to_plant']}}</small>
-                                        <input type="text" name="input[{{$input['how_to_plant']}}]"
-                                               placeholder="{{$name['how_to_plant']}}"
-                                               class="form-control">
-                                    </div>
-                                    <div class="col-12 col-md-4">
-                                        <small class="form-text text-muted">{{$name['planting_rate']}}</small>
-                                        <input type="text" name="input[{{$input['planting_rate']}}]"
-                                               placeholder="{{$name['planting_rate']}}"
-                                               class="form-control">
-                                    </div>
-
-                                    <div class="col-12 col-md-4">
-                                        <small class="form-text text-muted">{{$name['seed_preparation']}}</small>
-                                        <input type="text" name="input[{{$input['seed_preparation']}}]"
-                                               placeholder="{{$name['seed_preparation']}}"
-                                               class="form-control">
-                                    </div>
-                                    <div class="col-12 col-md-4">
-                                        <small class="form-text text-muted">{{$name['repair_day']}}</small>
+                                        <small class="form-text text-muted">{{ __('message.repair_day') }}</small>
                                         <input type="date" name="input[{{$input['repair_day']}}]"
                                                placeholder="{{$name['repair_day']}}"
                                                class="form-control">
                                     </div>
                                     <div class="col-12 col-md-4">
-                                        <small class="form-text text-muted">{{$name['harvest_day']}}</small>
+                                        <small class="form-text text-muted">{{ __('message.harvest_day') }}</small>
                                         <input type="date" name="input[{{$input['harvest_day']}}]"
                                                placeholder="{{$name['harvest_day']}}"
                                                class="form-control">
                                     </div>
+                                    <div class="col-12 col-md-4">
+                                        <small class="form-text text-muted">{{ __('message.how_to_plant') }}</small>
+                                        <input type="text" name="input[{{$input['how_to_plant']}}]"
+                                               placeholder="{{ __('message.how_to_plant') }}"
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <small class="form-text text-muted">{{ __('message.seed_preparation') }}</small>
+                                        <input type="text" name="input[{{$input['seed_preparation']}}]"
+                                               placeholder="{{ __('message.seed_preparation') }}"
+                                               class="form-control">
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <small class="form-text text-muted">{{ __('message.address_land') }}</small>
+                                        <input type="text" name="input[{{$input['address_land']}}]"
+                                               placeholder="HHT PHUKET" value="HHT PHUKET"
+                                               class="form-control">
+                                    </div>
+{{--                                    <div class="col-12 col-md-4">--}}
+{{--                                        <small class="form-text text-muted">{{$name['planting_rate']}}</small>--}}
+{{--                                        <input type="text" name="input[{{$input['planting_rate']}}]"--}}
+{{--                                               placeholder="{{$name['planting_rate']}}"--}}
+{{--                                               class="form-control">--}}
+{{--                                    </div>--}}
                                 </div>
                                 <div class="row form-group">
                                     <div class="col col-md-3">
                                         <label for="text-input"
-                                               class=" form-control-label">สมบัติ เคมีของดิน :</label>
+                                               class=" form-control-label">{{ __('message.type_soil') }}</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <select name="input[{{$input['soil_type']}}]" class="form-control">
-                                            <option selected>โปรดเลือก</option>
-                                            @foreach ($soil_type as $key => $value)
+                                            <option selected>{{ __('message.please_select') }}</option>
+                                            @foreach(__('message.soil') as $key => $value)
                                                 <option value="{{$key}}">{{$value}}</option>
                                             @endforeach
                                         </select>
@@ -472,19 +475,19 @@
 
                                 <div class="row form-group">
                                     <div class="col col-md-3">
-                                        <label for="textarea-input" class=" form-control-label">Note</label>
+                                        <label for="textarea-input" class=" form-control-label">{{ __('message.note') }}</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <textarea name="input[{{$input['note']}}]" id="textarea-input" rows="9"
-                                                  placeholder="Note..." class="form-control"></textarea>
+                                                  placeholder="{{ __('message.note') }}" class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-dot-circle-o"></i> Submit
+                                        <i class="fa fa-dot-circle-o"></i> {{ __('message.submit') }}
                                     </button>
                                     <button type="reset" class="btn btn-danger btn-sm">
-                                        <i class="fa fa-ban"></i> Reset
+                                        <i class="fa fa-ban"></i> {{ __('message.reset') }}
                                     </button>
                                 </div>
                                 {{ csrf_field() }}

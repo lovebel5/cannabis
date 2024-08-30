@@ -35,7 +35,7 @@
                         @endif
                         <div class="card">
                             <div class="card-header">
-                                <strong>Select Building</strong>
+                                <strong>{{ __('message.select_building') }}</strong><br>
                             </div>
 {{--                            <div class="card-body card-block">--}}
 {{--                            <div class="col-ms-12 text-center">--}}

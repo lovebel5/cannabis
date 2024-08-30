@@ -24,7 +24,7 @@
                         <div class="card">
                             <div class="card-header row">
                                 <div class="col-6 col-md-6">
-                                    <h2 class="title-1">Building : {{$id_building}}</h2>
+                                    <h2 class="title-1">{{ __('message.warehouse') }} : {{$id_building}}</h2>
                                 </div>
                                 <div class="col-6 col-md-6 text-right" name="add-item">
 
@@ -38,22 +38,22 @@
                                             <div class="card-body card-block">
                                                     <div class="row form-group">
                                                         <div class="col-12 col-md-3">
-                                                            <small class="form-text text-muted">วันที่บันทึก</small>
+                                                            <small class="form-text text-muted">{{ __('message.recording_date') }}</small>
                                                             <input type="date" value="{{date('Y-m-d')}}" name="form[date]"
-                                                                   placeholder="ความชื้น" class="form-control" id="txtDate">
+                                                                  class="form-control" id="txtDate">
                                                         </div>
                                                         <div class="col-12 col-md-3">
-                                                            <small class="form-text text-muted">ความชื้น</small>
-                                                            <input type="text" value="{{($data) ? $data['moisture']:''}}" name="form[moisture]"
-                                                                   placeholder="ความชื้น" class="form-control" id="moisture" required>
+                                                            <small class="form-text text-muted">{{ __('message.humidity') }}</small>
+                                                            <input type="number" maxlength="2" value="{{($data) ? $data['moisture']:''}}" name="form[moisture]"
+                                                                   placeholder="{{ __('message.humidity') }}" class="form-control" id="moisture" required>
                                                         </div>
                                                         <div class="col-12 col-md-3">
-                                                            <small class="form-text text-muted">อุณหภูมิ</small>
-                                                            <input type="text" value="{{($data) ? $data['temperature']:''}}" name="form[temperature]"
-                                                                   placeholder="อุณหภูมิ" class="form-control" id="temperature" required>
+                                                            <small class="form-text text-muted">{{ __('message.temperature') }}</small>
+                                                            <input type="number" maxlength="3" value="{{($data) ? $data['temperature']:''}}" name="form[temperature]"
+                                                                   placeholder="{{ __('message.temperature') }}" class="form-control" id="temperature" required>
                                                         </div>
                                                         <div class="col-12 col-md-3">
-                                                            <small class="form-text text-muted">หัวหน้าโรงเรือน</small>
+                                                            <small class="form-text text-muted">{{ __('message.expert') }}</small>
                                                             <select name="form[expert][]" id="expert" class="form-control select2 " multiple autocomplete="on" required>
                                                                 @if($data)
                                                                     @foreach($data['expert'] as $val)
@@ -63,7 +63,7 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-md-3">
-                                                            <small class="form-text text-muted">เจ้าหน้าที่ประจำโรงเรือน</small>
+                                                            <small class="form-text text-muted">{{ __('message.coworker') }}</small>
                                                             <select name="form[coworker][]" id="coworker" class="form-control select2" multiple autocomplete="on" required>
                                                                 @if($data)
                                                                     @foreach($data['coworker'] as $val)
@@ -73,17 +73,18 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-md-3">
-                                                            <small class="form-text text-muted">การให้น้ำ</small>
+                                                            <small class="form-text text-muted">{{ __('message.watering') }}</small>
                                                             <input type="text" value="{{($data) ? $data['give_water']:''}}" name="form[give_water]"
-                                                                   placeholder="การให้น้ำ" class="form-control" id="give_water" required>
+                                                                   placeholder="{{ __('message.watering') }}" class="form-control" id="give_water" required>
                                                         </div>
                                                         <div class="col-12 col-md-3">
-                                                            <small class="form-text text-muted">การให้ปุ๋ย</small>
+                                                            <small class="form-text text-muted">{{ __('message.fertilizing') }}</small>
                                                             <input type="text" value="{{($data) ? $data['fertilize']:''}}" name="form[fertilize]"
-                                                                   placeholder="การให้ปุ๋ย" class="form-control" id="fertilize" required>
+                                                                   placeholder="{{ __('message.fertilizing') }}" class="form-control" id="fertilize" required>
                                                         </div>
                                                         <div class="col-12 col-md-3">
-                                                            <small class="form-text text-muted">ประเภทดิน</small>
+
+                                                            <small class="form-text text-muted">{{ __('message.soil_type') }}</small>
                                                             <select id="soil_type" name="form[soil_type]" class="form-control" required>
                                                                 <option value="0" selected="">ดินร่วนปนทราย</option>
                                                                 <option value="1">ดินร่วนเหนียว</option>
@@ -93,21 +94,21 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-12 col-md-12">
-                                                            <small  class="form-text text-muted">บันทึกเตือนความจำ</small>
+                                                            <small  class="form-text text-muted">{{ __('message.note') }}</small>
                                                         </div>
                                                         <div class="col-12 col-md-12">
                                                             <textarea name="form[note]" id="textarea-input" rows="9"
-                                                                      placeholder="Note..."
+                                                                      placeholder="{{ __('message.note') }}"
                                                                       class="form-control"></textarea>
                                                         </div>
 
                                                     </div>
                                                     <div class="card-footer">
                                                         <button type="submit" name="submit" class="btn btn-primary btn-sm">
-                                                            <i class="fa fa-dot-circle-o"></i>Submit
+                                                            <i class="fa fa-dot-circle-o"></i>{{ __('message.submit') }}
                                                         </button>
                                                         <button type="reset" class="btn btn-danger btn-sm">
-                                                            <i class="fa fa-ban"></i> Reset
+                                                            <i class="fa fa-ban"></i> {{ __('message.reset') }}
                                                         </button>
                                                     </div>
                                             </div>
@@ -124,13 +125,13 @@
                                                 <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>วันที่</th>
-                                                    <th>ความชื้น</th>
-                                                    <th>อุณหภูมิ</th>
-                                                    <th>ให้น้ำ</th>
-                                                    <th>ให้ปุ๋ย</th>
-                                                    <th>รหัสดิน</th>
-                                                    <th>หัวหน้าโรงเรือน</th>
+                                                    <th>{{ __('message.date') }}</th>
+                                                    <th>{{ __('message.humidity') }}</th>
+                                                    <th>{{ __('message.Temperature') }}</th>
+                                                    <th>{{ __('message.Temperature') }}</th>
+                                                    <th>{{ __('message.fertilizing') }}</th>
+                                                    <th>{{ __('message.type_soil') }}</th>
+                                                    <th>{{ __('message.expert') }}</th>
                                                     <th>#</th>
                                                 </tr>
                                                 </thead>
@@ -146,7 +147,7 @@
                                                     ?>
                                                     <tr>
                                                         <td>{{$row_number}}</td>
-                                                        <td style="width: 100px;">{{$row[$index]->date}}</td>
+                                                        <td>{{$row[$index]->date}}</td>
                                                         <td>{{$value['moisture']}}</td>
                                                         <td>{{$value['temperature']}}</td>
                                                         <td>{{$value['give_water']}}</td>
@@ -257,8 +258,8 @@
                       $('#fertilize').val(value['fertilize']);
                       $("#soil_type").prop("selectedIndex", value['soil_type']).val();
                       $('#textarea-input').val(value['note']);
-                      $("[name=submit]").html("<i class=\"fa fa-dot-circle-o\"></i> Update");
-                      $('.title-1').html("Edit : "+response.date.building+" ["+ response.date.date +"]");
+                      $("[name=submit]").html("<i class=\"fa fa-dot-circle-o\"></i> {{ __('message.update') }} ");
+                      $('.title-1').html("{{ __('message.edit') }} : "+response.date.building+" ["+ response.date.date +"]");
                       $('[name=add-item]').html("<button type='button' onclick='window.location.reload()' class='btn btn-primary btn-sm'> <i class='fa fa-dot-circle-o'></i> New</button>");
                       $('#building').attr('action','{{url('admin/building/edit-building-each/update')}}/'+response.date.id);
 

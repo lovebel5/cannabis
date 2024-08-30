@@ -26,6 +26,9 @@ class VariableControllers
              case "eventCannabis":
                 return $this->eventCannabis();
                 break;
+            case "staff":
+                return $this->staff();
+                break;
             default:
                 return false;
         }
@@ -81,7 +84,7 @@ class VariableControllers
 
             ],
             'name' => [
-                'experiment_name'       => 'ชื่อโรงเรือน',
+                'experiment_name'       =>  'ชื่อโรงเรือน',
                 'trial_code'            => 'รหัสการทดลอง',
                 'objective'             => 'วัตถุประสงค์',
                 'expert'                => 'หัวหน้าโรงเรือน',
@@ -124,7 +127,6 @@ class VariableControllers
         return $name = [
           0 => 'นายมนตรี พรผล',
           1 => 'นางสาววรรดี เพชรชู',
-//           2 => 'นายราก ใบสวย',
         ];
 
     }
@@ -150,37 +152,48 @@ class VariableControllers
 
     public function building(){
         return $building = [
-            0 => "NurseryRoom",
-            1 => "a",
-            2 => "b",
-            3 => "c",
-            4 => "d",
-            5 => "e",
-            6 => "f",
-            7 => "g",
-            8 => "h",
-            9 => "i",
-            10 => "j",
-            11 => "k",
-            12 => "l",
-            13 => "m",
-            14 => "n",
-            15 => "o",
-            16 => "p",
-            17 => "q",
-            18 => "r",
-            19 => "s",
-            20 => "t",
-            21 => "u",
-            22 => "v",
-            23 => "w",
-            24 => "x",
-            25 => "y",
-            26 => "z",
-            27 => "flower-1",
-            28 => "flower-2",
+            1 => "NurseryRoom",
+//            11 => "green-gouse",
+            12 => "Outdoor",
+            10 => "gh-a",
+            20 => "gh-b",
+            30 => "gh-c",
+            40 => "gh-d",
+            50 => "gh-e",
+            60 => "gh-f",
+            70 => "gh-g",
+            80 => "gh-h",
+            90 => "gh-i",
+            100 => "gh-j",
+            110 => "gh-k",
+            120 => "gh-l",
+            130 => "gh-m",
+            140 => "gh-n",
+            150 => "gh-o",
+            160 => "gh-p",
+            170 => "gh-q",
+            180 => "gh-r",
+            190 => "gh-s",
+            200 => "gh-t",
+            210 => "gh-u",
+            220 => "gh-v",
+            230 => "gh-w",
+            240 => "gh-x",
+            250 => "gh-y",
+            260 => "gh-z",
+            270 => "flower-1",
+            280 => "flower-2",
             // 29 => "Nursery Room",
             // 30 => "null",
         ];
     }
+    public function staff(){
+        return $name = [
+            0 => 'ธีรทัต',
+            20 => 'Aung',
+            21 => 'Thi',
+        ];
+
+    }
+
 }
