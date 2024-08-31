@@ -347,8 +347,9 @@
                                                 <div class="new-comment">
                                                     <div class="tags-container">
                                                         @foreach (__('message.tags') as $key => $value)
-                                                            <button type="button" class="tag-button" @if($key == 'selling') style="background-color: #ff0000;" @endif
-                                                            onclick="addTag('{{ $value }}', this)">{{ $value }}
+                                                            <button type="button" class="tag-button"
+                                                                    @if($key == 'selling') style="background-color: #ff0000;" @endif
+                                                                    onclick="addTag(this.value, this)" value="{{$key}}">{{ $value }}
                                                             </button>
                                                         @endforeach
                                                     </div>
@@ -361,7 +362,7 @@
                                                     <input type="hidden" value="{{$id ?? '' }}" name="id_basic_info"/>
 
                                                     <div class="col-md-12 m-1 text-right">
-                                                        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> Save
+                                                        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> {{ __('message.save') }}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -398,10 +399,9 @@
                                                     </div>
                                                     @if(!is_null($val['data']['message']) || !is_null($val['data']['tags']))
                                                     <div class="comment">
-                                                        <p>{{$val['data']['message']}}</p>
                                                         @if(!is_null($val['data']['tags']))
                                                             @foreach ($tag as $value)
-                                                                <button class="button"><p>{{$value}}</p></button>
+                                                                <button class="button"><p>{{ __('message.tags.' . $value)}}</p></button>
                                                             @endforeach
                                                         @endif
                                                         <button class="button | square d-none">
@@ -487,10 +487,10 @@
 
     <script type="text/javascript" src="{{url('js/datatables.js')}}"></script>
     <script>
-        function addTag(tag, button) {
+        function addTag(value, button) {
             // ป้องกันการเพิ่มแท็กที่มีอยู่แล้ว
-            const existingTags = Array.from(document.querySelectorAll('.selected-tag')).map(tag => tag.textContent.trim().replace('x', '').trim());
-            if (existingTags.includes(tag)) {
+            const existingTags = Array.from(document.querySelectorAll('.selected-tag')).map(tag => tag.dataset.value);
+            if (existingTags.includes(value)) {
                 return;
             }
 
@@ -498,7 +498,8 @@
             const tagsContainer = document.getElementById('selected-tags');
             const tagElement = document.createElement('div');
             tagElement.className = 'selected-tag';
-            tagElement.textContent = tag;
+            tagElement.textContent = button.textContent; // แสดงข้อความของปุ่มในแท็ก
+            tagElement.dataset.value = value; // เก็บค่า value ของปุ่มใน data attribute
 
             // สร้างปุ่มลบแท็ก
             const removeButton = document.createElement('button');
@@ -524,9 +525,8 @@
         }
 
         function updateHiddenInput() {
-            const tags = Array.from(document.querySelectorAll('.selected-tag')).map(tag => tag.textContent.trim());
-            // ลบ 'x' ออกจากแท็กหากมี
-            document.getElementById('tags-input').value = tags.map(tag => tag.replace('x', '').trim()).join(',');
+            const tags = Array.from(document.querySelectorAll('.selected-tag')).map(tag => tag.dataset.value);
+            document.getElementById('tags-input').value = tags.join(',');
         }
 
         function submitOnEnter(event) {
@@ -535,6 +535,7 @@
                 document.getElementById('comment-form').submit();
             }
         }
+
     </script>
 @endsection
 
