@@ -84,7 +84,7 @@ class EventControllers
 
         $getEvent = $this->EventRepositories->getAllEventByInfoId($id);
         $checkCannabisAvailableById->value = json_decode($checkCannabisAvailableById->value,true);
-
+//        dd($getEvent,$id);
         return view('admin.event', [
             'id' => $id,
             'data' => $getEvent,

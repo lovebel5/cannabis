@@ -112,26 +112,27 @@
                                     $value = json_decode($basicInformation[$index]->value, true);
                                     ?>
                                     <tr>
-                                        <td><input type="checkbox" class="select-row" id="{{$val->id}}" data-planting-date="{{$value['planting_date']}}" data-varieties-used="{{$value['varieties_used']}}"></td>
+                                        <td> <input type="checkbox" class="select-row" id="{{$val->id}}" data-planting-date="{{$value['planting_date']}}" data-varieties-used="{{$value['varieties_used']}}"></td>
                                         <td>
                                             <div class="table-data-feature justify-content-center">
                                                 @if($value['note'] != '')
                                                     <button id-note="{{$val->id}}" onclick="updateNote('{{$val->id}}',$(this).attr('data-original-title'))" class="item note" data-toggle="tooltip" data-placement="top" title=""
-                                                            data-original-title="{{$value['note']}}">
+                                                            data-original-title="{{$value['note']}}" type="button"> <i class="fa fa-comment" aria-hidden="true"></i>
                                                     </button>
                                                 @endif
-                                                <a href="{{url('admin/event/'.$val->id)}}" target="_blank"> <button class="item" type="button">
+                                                    <button class="item" type="button">
+                                                        <a href="{{url('admin/event/'.$val->id)}}" target="_blank">
                                                         <i class="fa fa-paperclip" aria-hidden="true"></i>
-
+                                                        </a>
                                                     </button>
-                                                </a>
-                                                <button class="item"
-                                                        data-placement="top" title=""
-                                                        data-original-title="{{$value['trial_code']}}" data-toggle="modal"
-                                                        data-target="#modalQrCode" id="{{$val->id}}" type="button">
-                                                    <i class="fa fa-qrcode"></i>
 
-                                                </button>
+{{--                                                 <button class="item"--}}
+{{--                                                        data-placement="top" title=""--}}
+{{--                                                        data-original-title="{{$value['trial_code']}}" data-toggle="modal"--}}
+{{--                                                        data-target="#modalQrCode" id="{{$val->id}}" type="button">--}}
+{{--                                                    <i class="fa fa-qrcode"></i>--}}
+
+{{--                                                </button>--}}
                                                 <button onclick="checkBasicInformationById('{{$val->id}}')" class="item"
                                                         data-toggle="tooltip" data-placement="top" title=""
                                                         data-original-title="Edit" type="button">
@@ -145,7 +146,7 @@
 
                                             </div>
                                         </td>
-                                        <td>{{$row}} [{{$val->id}}]</td>
+                                        <td>{{$val->id}}</td>
                                         <td onclick="checkBasicInformationById({{$val->id}})" class="text-uppercase">{{$value['experiment_name']}}</td>
                                         <td onclick="checkBasicInformationById({{$val->id}})" >{{$value['trial_code']}}</td>
                                         <td class=""><a style="color: #808080"  target="_blank">{{$value['varieties_used']}}</a></td>
@@ -718,7 +719,7 @@
                 'select': {
                     'style': 'multi'
                 },
-                'order': [[1, 'asc']]
+                'order': [[2, 'DESC']]
             });
 
             // ทำให้ checkbox ในหัวตารางสามารถเลือก/ไม่เลือกแถวทั้งหมดได้

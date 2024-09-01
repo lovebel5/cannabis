@@ -121,20 +121,19 @@
                                             <form id="results-list">
                                                 <div class="tags-container">
                                                     @foreach (__('message.tags') as $key => $value)
-                                                        <button type="button" class="tag-button" @if($key == 'selling') style="background-color: #ff0000;" @endif
-                                                                onclick="addTag('{{ $value }}', this)">{{ $value }}
+                                                        <button type="button" class="tag-button"
+                                                                @if($key == 'selling') style="background-color: #ff0000;" @endif
+                                                                onclick="addTag(this.value,this.lang, this)" value="{{$key}}" lang="{{ $value }}">{{ $value }}
                                                         </button>
                                                     @endforeach
                                                 </div>
+
                                                 <input type="text" id="text-input" name="message"
-                                                       placeholder="{{ __('message.add_comment') }}" class="form-control">
+                                                       placeholder="{{ __('message.add_comment') }}" class="form-control" onkeypress="submitOnEnter(event)">
                                                 <div id="selected-tags" class="selected-tags"></div>
                                                 <input type="hidden" id="tags-input" name="tags">
                                                 <input type="hidden" value="" name="id_basic_info"/>
                                                 <div class="col-md-12 m-1 text-right">
-                                                    {{--                                                    <button type="submit" class="btn btn-success btn-sm"><i--}}
-                                                    {{--                                                            class="fas fa-save"></i> Save--}}
-                                                    {{--                                                    </button>--}}
                                                     <button type="button" id="startButton">{{ __('message.start_scan_qr_code') }}</button>
                                                 </div>
                                                 {{ csrf_field() }}
@@ -154,128 +153,103 @@
     </div>
     <script type="application/javascript" src="{{ url('scan/html5-qrcode.min.js') }}"></script>
     <script>
-
-
-        let scanningAllowed = false; // ตัวแปรในการควบคุมการสแกน
+        let scanningAllowed = false;
+        let reQrcode = true;
         const beep = new Audio('{{ url('scan/beep-08b.wav') }}');
-        const scannedCodes = new Set(); // Set สำหรับติดตาม QR code ที่สแกนแล้ว
-        let html5QrCode; // ประกาศตัวแปร global สำหรับ Html5Qrcode
+        const scannedCodes = new Set();
+        let html5QrCode;
+        let formObject = {};
 
-        // ฟังก์ชันในการจัดรูปแบบวันที่และเวลา
         function setDate() {
             const date = new Date();
             const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0'); // เดือน 1-12
-            const day = String(date.getDate()).padStart(2, '0'); // วัน 1-31
-            const hours = String(date.getHours()).padStart(2, '0'); // ชั่วโมง 0-23
-            const minutes = String(date.getMinutes()).padStart(2, '0'); // นาที 0-59
-            const seconds = String(date.getSeconds()).padStart(2, '0'); // วินาที 0-59
-
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
             return `${hours}:${minutes}:${seconds}`;
-
         }
-
 
         function onScanSuccess(decodedText, decodedResult) {
             if (!scanningAllowed) {
-                return; // หยุดหากไม่อนุญาตให้สแกน
+                return;
             }
 
             const h2 = document.getElementById('title');
-            // const resultsList = document.getElementById('results-list');
             const resultsList = document.getElementById('list_qr_code');
             const listItem = document.createElement('p');
             const idInfo = decodedText.split('/').pop();
 
-
-
-
-            // ตรวจสอบว่ารหัส QR Code นี้ถูกสแกนไปแล้วหรือไม่
             if (scannedCodes.has(decodedText)) {
-                // h2.textContent = 'Scanned this time ' + idInfo;
-                // h2.setAttribute('style', 'color: #ff0000');
                 console.log(`รหัส QR Code นี้ถูกสแกนไปแล้ว: ${decodedText}`);
+                reQrcode = false;
                 return;
             }
 
-            console.log(`รหัส QR Code ถูกสแกน: ${decodedText}`);
+            if (reQrcode) {
+                console.log(`รหัส QR Code ถูกสแกน: ${decodedText}`);
+                scannedCodes.add(decodedText);
 
-            // เพิ่มรหัสที่สแกนแล้วลงใน Set
-            scannedCodes.add(decodedText);
+                setTimeout(() => {
+                    if (!isNaN(parseFloat(idInfo)) && isFinite(idInfo)) {
+                        var date = setDate();
+                        const tags = Array.from(document.querySelectorAll('.selected-tag'));
+                        const lang = tags.map(tag => tag.getAttribute('lang'));
+                        const form = document.querySelector('#results-list');
+                        const formData = new FormData(form);
 
-            // เพิ่มรหัสที่สแกนแล้วลงใน <form>
-            if (!isNaN(parseFloat(idInfo)) && isFinite(idInfo)) {
+                        formObject = {};
 
-                var date = setDate();
-                const form = document.querySelector('#results-list');
-                const formData = new FormData(form);
-                const formObject = {};
-                formData.forEach((value, key) => {
-                    formObject[key] = value;
-                });
+                        formData.forEach((value, key) => {
+                            formObject[key] = value;
+                        });
 
-                formObject['id_basic_info'] = idInfo;
-                formObject['date'] = date;
-                listItem.textContent = idInfo + ' ' + date + ' ' +formObject.message + ' ' + formObject.tags ;
-                resultsList.prepend(listItem); // เพิ่มรายการใหม่ไปที่ด้านบนสุดของ <form>
+                        formObject['id_basic_info'] = idInfo;
+                        formObject['date'] = date;
 
-                // เล่นเสียงปิ๊บ
+                        listItem.textContent = idInfo + ' ' + date + ' ' + formObject.message + ' ' + lang.join(',');
 
-                // listItem.textContent = idInfo +' '+ date ;
-                // resultsList.prepend(listItem); // เพิ่มรายการใหม่ไปที่ด้านบนสุดของ <form>
+                        h2.textContent = idInfo;
+                        h2.setAttribute('style', 'color: #006b28');
 
-                // เล่นเสียงปิ๊บ
-                beep.play();
+                        listItem.setAttribute('type', 'text');
+                        listItem.setAttribute('id', idInfo);
+                        listItem.setAttribute('name', 'id[' + idInfo + ']');
+                        listItem.value = idInfo;
 
-                h2.textContent = idInfo;
-                h2.setAttribute('style', 'color: #006b28');
-
-                // ตั้งค่าคุณสมบัติของ input
-                listItem.setAttribute('type', 'text');
-                listItem.setAttribute('id', idInfo);
-                listItem.setAttribute('name', 'id[' + idInfo + ']');
-                listItem.value = idInfo;
-
-
-
-                console.log('dataToSend:', formObject);
-// ส่งข้อมูลด้วย fetch API
-                fetch('{{url('admin/event/inset-for-qr-code')}}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify(dataToSend)
-                })
-                    .then(response => response.json()) // เปลี่ยนเป็น .text() หากเซิร์ฟเวอร์ส่งกลับข้อความธรรมดา
-                    .then(data => {
-                        // การจัดการหลังจากส่งข้อมูลสำเร็จ
-                        console.log(data);
-                        alert('ส่งข้อมูลสำเร็จ!');
-
-                        // หยุดการสแกนชั่วคราวและเริ่มใหม่หลังจาก 10 วินาที
-                        scanningAllowed = false;
-                        setTimeout(() => {
-                            scanningAllowed = true;
-                        }, 1000);
-                    })
-                    .catch(error => {
-                        // การจัดการข้อผิดพลาด
-                        console.error('เกิดข้อผิดพลาด:', error);
-                        alert('เกิดข้อผิดพลาดในการส่งข้อมูล.');
-                    });
-
+                        console.log('dataToSend:', formObject);
+                        fetch('{{url('admin/event/inset-for-qr-code')}}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify(formObject)
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                // alert('การจัดการหลังจากส่งข้อมูลสำเร็จ');
+                                beep.play();
+                                resultsList.prepend(listItem);
+                                reQrcode = true;
+                            })
+                            .catch(error => {
+                                console.error('เกิดข้อผิดพลาด:', error);
+                                alert('เกิดข้อผิดพลาดในการส่งข้อมูล.');
+                                reQrcode = true;
+                            });
+                    }
+                }, 1000);
             }
         }
 
-        // ฟังก์ชันเริ่มต้นการสแกนเมื่อกดปุ่ม
         document.getElementById('startButton').addEventListener('click', function () {
             if (html5QrCode) {
                 html5QrCode.stop().then(() => {
                     html5QrCode.start(
                         {facingMode: "environment"},
-                        {fps: 5, qrbox: 300},
+                        {fps: 3, qrbox: 300},
                         onScanSuccess
                     ).catch(err => {
                         console.error('เกิดข้อผิดพลาด:', err);
@@ -287,30 +261,29 @@
                 html5QrCode = new Html5Qrcode("reader");
                 html5QrCode.start(
                     {facingMode: "environment"},
-                    {fps: 5, qrbox: 300},
+                    {fps: 3, qrbox: 300},
                     onScanSuccess
                 ).catch(err => {
                     console.error('เกิดข้อผิดพลาด:', err);
                 });
             }
-            scanningAllowed = true; // อนุญาตให้สแกน
+            scanningAllowed = true;
 
-            // ซ่อนปุ่มหลังจากคลิก
-            this.style.display = 'none'; // ใช้ 'none' เพื่อทำให้ปุ่มหายไป
-            // หรือใช้ this.style.visibility = 'hidden'; หากต้องการปุ่มให้มีที่ว่างในเลย์เอาต์
+            this.style.display = 'none';
         });
 
-
-        function addTag(tag, button) {
-            const existingTags = Array.from(document.querySelectorAll('.selected-tag')).map(tag => tag.textContent.trim().replace('x', '').trim());
-            if (existingTags.includes(tag)) {
+        function addTag(value, lang, button) {
+            const existingTags = Array.from(document.querySelectorAll('.selected-tag')).map(tag => tag.dataset.value);
+            if (existingTags.includes(value)) {
                 return;
             }
 
             const tagsContainer = document.getElementById('selected-tags');
             const tagElement = document.createElement('div');
             tagElement.className = 'selected-tag';
-            tagElement.textContent = tag;
+            tagElement.textContent = button.textContent;
+            tagElement.dataset.value = value;
+            tagElement.setAttribute('lang', lang);
 
             const removeButton = document.createElement('button');
             removeButton.className = 'remove-tag';
@@ -325,12 +298,14 @@
             tagsContainer.appendChild(tagElement);
 
             button.classList.add('disabled');
+
             updateHiddenInput();
         }
 
         function updateHiddenInput() {
-            const tags = Array.from(document.querySelectorAll('.selected-tag')).map(tag => tag.textContent.trim());
-            document.getElementById('tags-input').value = tags.map(tag => tag.replace('x', '').trim()).join(',');
+            const tags = Array.from(document.querySelectorAll('.selected-tag'));
+            const dataValue = tags.map(tag => tag.getAttribute('data-value'));
+            document.getElementById('tags-input').value = dataValue.join(',');
         }
 
         function submitOnEnter(event) {
@@ -340,4 +315,5 @@
             }
         }
     </script>
+
 @endsection
