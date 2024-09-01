@@ -89,6 +89,10 @@ return [
     ],
     'start_scan_qr_code' => 'Scan QR Code',
     'add_comment' => 'Add a comment',
-    'qr_code_scanner' => 'QR Code Scanner'
+    'qr_code_scanner' => 'QR Code Scanner',
+    'sent_successfully' => 'Sent successfully',
+    'sent_data_error' => 'Sent Data Error',
+    'qr_code_already_scanned' => 'This Code already scanned.',
+
 
 ];

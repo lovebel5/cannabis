@@ -88,5 +88,8 @@ return [
     ],
     'start_scan_qr_code' => 'เริ่มสแกน QR Code',
     'add_comment' => 'เพิ่มความคิดเห็น',
-    'qr_code_scanner' => 'สแกน QR Code'
+    'qr_code_scanner' => 'สแกน QR Code',
+    'sent_successfully' => 'ข้อมูลถูกส่งสำเร็จ',
+    'sent_data_error' => 'ข้อมูลส่งไม่สำเร็จ',
+    'qr_code_already_scanned' => 'โค้ดนี้ถูกสแกนไปแล้ว',
 ];

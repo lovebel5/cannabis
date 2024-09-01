@@ -88,4 +88,7 @@ return [
     'start_scan_qr_code' => 'QR ကုဒ်ကို စကန်နှိပ်ပါ',
     'add_comment' => 'မှတ်ချက်ထည့်ပါ',
     'qr_code_scanner' => 'QR ကုဒ်စကန်နာ',
+    'sent_successfully' => 'အောင်မြင်စွာပို့လိုက်ပြီ',
+    'sent_data_error' => 'ဒေတာပို့ခြင်းအမှား',
+    'qr_code_already_scanned' => 'ဤ QR Code ကို စကန်ပြီးပါပြီ။',
 ];
