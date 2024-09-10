@@ -7,6 +7,7 @@ use App\Repositories\EventRepositories;
 use App\Libraries\EventLibraries;
 use App\Repositories\ProfileRepositories;
 use App\Repositories\IndexRepositories;
+use App\Http\Controllers\Admin\LineNotifyController;
 
 use Illuminate\Http\Request;
 use function Symfony\Component\String\u;
@@ -18,18 +19,21 @@ class EventControllers
     public $ProfileRepositories;
     public $IndexRepositories;
     public $VariableControllers;
+    public $LineNotifyController;
 
     public function __construct(EventRepositories $EventRepositories,
                                 EventLibraries $EventLibraries,
                                 ProfileRepositories $ProfileRepositories,
                                 IndexRepositories $IndexRepositories,
-                                VariableControllers $VariableControllers)
+                                VariableControllers $VariableControllers,
+                                LineNotifyController $LineNotifyController)
     {
         $this->EventRepositories = $EventRepositories;
         $this->EventLibraries = $EventLibraries;
         $this->ProfileRepositories = $ProfileRepositories;
         $this->IndexRepositories = $IndexRepositories;
         $this->VariableControllers = $VariableControllers;
+        $this->LineNotifyController = $LineNotifyController;
 
     }
 
@@ -58,6 +62,15 @@ class EventControllers
             'id_basic_info' => $input->get('id_basic_info'),
             'val_json' => json_encode($dataInput['json']),
         ];
+
+        $messageToLineNotifyController = [
+            'id_basic_info' => $data['id_basic_info'],
+            'tags' => $dataInput['json']['data']['tags'],
+            'message' => $dataInput['json']['data']['message'],
+            'user' => $dataInput['json']['data']['user']
+        ];
+
+        $this->LineNotifyController->sendNotification($messageToLineNotifyController);
 
         if($this->EventRepositories->save($data)){
             return response()->json([

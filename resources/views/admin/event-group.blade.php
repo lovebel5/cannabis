@@ -129,12 +129,13 @@
                                                 </div>
 
                                                 <input type="text" id="text-input" name="message"
-                                                       placeholder="{{ __('message.add_comment') }}" class="form-control" onkeypress="submitOnEnter(event)">
+                                                       placeholder="{{ __('message.add_comment') }}" class="form-control" onkeypress="submitOnEnter(event)" oninput="validateForm()">
+                                                <small class="form-text text-muted">{{ __('message.please_fill_in_at_least') }}</small>
                                                 <div id="selected-tags" class="selected-tags"></div>
-                                                <input type="hidden" id="tags-input" name="tags">
+                                                <input type="hidden" id="tags-input" name="tags" onchange="validateForm()">
                                                 <input type="hidden" value="" name="id_basic_info"/>
                                                 <div class="col-md-12 m-1 text-right">
-                                                    <button type="button" id="startButton">{{ __('message.start_scan_qr_code') }}</button>
+                                                    <button type="button" id="startButton" disabled>{{ __('message.start_scan_qr_code') }}</button>
                                                 </div>
                                                 {{ csrf_field() }}
                                             </form>
@@ -245,7 +246,7 @@
                     listItem.setAttribute('name', 'id[' + idInfo + ']');
                     listItem.value = idInfo;
 
-                    // console.log('dataToSend:', formObject);
+                    console.log('dataToSend:', formObject);
 
                     fetch('{{url('admin/event/inset-for-qr-code')}}', {
                         method: 'POST',
@@ -341,7 +342,7 @@
             tagsContainer.appendChild(tagElement);
 
             button.classList.add('disabled');
-
+            validateForm();
             updateHiddenInput();
         }
 
@@ -356,6 +357,19 @@
                 event.preventDefault();
                 document.getElementById('comment-form').submit();
             }
+        }
+
+        function validateForm() {
+            const textInput = document.getElementById('text-input').value.trim();
+            const tagsInput = document.getElementById('tags-input').value.trim();
+
+            // ถ้ามีข้อความใน message หรือ tags อย่างน้อย 1 ค่า จะเปิดปุ่ม startButton
+            if (textInput.length > 0 || tagsInput.length > 0) {
+                document.getElementById('startButton').disabled = false;
+            } else {
+                document.getElementById('startButton').disabled = true;
+            }
+
         }
     </script>
 

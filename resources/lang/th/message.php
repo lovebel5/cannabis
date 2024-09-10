@@ -86,6 +86,7 @@ return [
         'plant_death' => 'ต้นตาย',
         'selling' => 'จำหน่าย',
     ],
+    'please_fill_in_at_least' => 'กรุณากรอกข้อมูลอย่างน้อย 1 รายการ',
     'start_scan_qr_code' => 'เริ่มสแกน QR Code',
     'add_comment' => 'เพิ่มความคิดเห็น',
     'qr_code_scanner' => 'สแกน QR Code',

@@ -76,6 +76,7 @@ return [
     'fertilizing' => 'ဆီလျော်ခြင်း',
     'soil_code' => 'မြေရဲ့ကုဒ်',
     'recording_date' => 'မှတ်တမ်းရက်',
+
     'tags' => [
         'watering' => 'ရေရွေးခြင်း',
         'fertilizing' => 'ဆီလျော်ခြင်း',
@@ -85,6 +86,8 @@ return [
         'plant_death' => 'အပင်အမေ',
         'selling' => 'ရောင်းချခြင်း',
     ],
+
+    'please_fill_in_at_least' => 'ကျေးဇူးပြု၍ အနည်းဆုံး ၁ ခု အချက်အလက် ဖြည့်ပါ။',
     'start_scan_qr_code' => 'QR ကုဒ်ကို စကန်နှိပ်ပါ',
     'add_comment' => 'မှတ်ချက်ထည့်ပါ',
     'qr_code_scanner' => 'QR ကုဒ်စကန်နာ',

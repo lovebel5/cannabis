@@ -188,7 +188,6 @@
 
     <script type="application/javascript">
         $(function(){
-
             var dtToday = new Date();
             var month = dtToday.getMonth() + 1;
             var day = dtToday.getDate();
@@ -280,9 +279,6 @@
 
                       $('#expert option').remove();
                       $('#expert').append(expertText);
-
-
-
 
                   }
 

@@ -78,6 +78,8 @@ return [
     'fertilizing' => 'Fertilizing',
     'soil_code' => 'Soil Code',
     'recording_date' => 'Recording date',
+
+    //TAG
     'tags' => [
         'watering' => 'Watering',
         'fertilizing' => 'Fertilizing',
@@ -87,6 +89,8 @@ return [
         'plant_death' => 'Plant Death',
         'selling' => 'Selling',
     ],
+    'please_fill_in_at_least' => 'Please fill in at least 1 item',
+
     'start_scan_qr_code' => 'Scan QR Code',
     'add_comment' => 'Add a comment',
     'qr_code_scanner' => 'QR Code Scanner',

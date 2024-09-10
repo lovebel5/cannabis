@@ -399,6 +399,7 @@
                                                     </div>
                                                     @if(!is_null($val['data']['message']) || !is_null($val['data']['tags']))
                                                     <div class="comment">
+                                                       <p>{{$val['data']['message']}}</p>
                                                         @if(!is_null($val['data']['tags']))
                                                             @foreach ($tag as $value)
                                                                 <button class="button"><p>{{ __('message.tags.' . $value)}}</p></button>
