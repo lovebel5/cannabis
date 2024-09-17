@@ -1,6 +1,6 @@
 <!-- HEADER MOBILE-->
 <style>
-    .navbar-mobile, {
+    .navbar-mobile {
         display: none;
     }
 </style>
@@ -19,12 +19,23 @@
             </div>
         </div>
     </div>
+{{--    {{dd($weatherData)}}--}}
     <nav class="navbar-mobile">
         <div class="container-fluid">
             <ul class="navbar-mobile__list list-unstyled">
+
+                <li style="border-bottom: 1px solid #dfdfdf;">
+                    <p>
+                        <img src="{{ asset('images/Weather2.png') }}" style="width: 20px;">{{ $weatherData['tc_max'] }}°/{{ $weatherData['tc_min'] }}°
+                        <img src="{{ asset('images/Weather1.png') }}" style="width: 20px;">{{ $weatherData['rh'] }}%
+                    </p>
+                    <p>{{ __('message.taladyai_phuket') }}</p>
+                </li>
+
                 <li>
                     <a href="{{url('')}}">🇺🇸🇹🇭🇲🇲</a>
                 </li>
+
                 <li>
                     <a href="{{url('admin/building')}}">
                         <i class="fas fa-home"></i>{{ __('message.warehouse') }}
@@ -155,6 +166,17 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="text-center">
+                <li style="border-bottom: 1px solid #dfdfdf;">
+                    <p>
+                        <img src="{{ asset('images/Weather2.png') }}" style="width: 20px;">{{ $weatherData['tc_max'] }}°/{{ $weatherData['tc_min'] }}°
+                        <img src="{{ asset('images/Weather1.png') }}" style="width: 20px;">{{ $weatherData['rh'] }}%
+                    </p>
+                    <p class="text-center">{{ __('message.taladyai_phuket') }}</p>
+                </li>
+                </li>
+
                 <li class="text-center">
                     <a href="{{url('')}}">🇺🇸🇹🇭🇲🇲</a>
                 </li>

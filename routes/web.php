@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\ProfileControllers;
 use App\Http\Controllers\Admin\BuildingControllers;
 use App\Http\Controllers\Admin\EventControllers;
 use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\weatherControllers;
+use App\Http\Controllers\Admin\LineNotifyController;
 
 
 use App\Http\Controllers\UserControllers;
@@ -27,17 +29,20 @@ Route::get('/', function () {
     return view('index'); // เปลี่ยนเส้นทางไปที่หน้า admin
 })->name('home');
 
+route::get('/send_notification', [LineNotifyController::class, 'sendWeatherToLineGroup']);
 
 route::get('/language/{locale}', [LanguageController::class, 'switchLanguage'])->name('language.switch');
 
     Route::prefix('admin')->group(function () {
         Route::get('/', [BuildingControllers::class, 'index']);
+
         Route::get('/cannabis-plant', [IndexControllers::class, 'index']);
         Route::post('/print-qr-code', [IndexControllers::class, 'printQrCode']);
         Route::post('inset', [IndexControllers::class, 'insetInformation']);
         Route::get('delete/{id}', [IndexControllers::class, 'disableBasicInformation']);
         Route::get('search', [IndexControllers::class, 'search']);
         Route::get('showToken', [IndexControllers::class, 'showToken']);
+        Route::get('weather', [weatherControllers::class, 'index']);
 
         Route::prefix('profile')->group(function () {
             Route::get('{id}', [ProfileControllers::class, 'index']);

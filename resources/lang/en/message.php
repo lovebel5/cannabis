@@ -97,6 +97,8 @@ return [
     'sent_successfully' => 'Sent successfully',
     'sent_data_error' => 'Sent Data Error',
     'qr_code_already_scanned' => 'This Code already scanned.',
+    'weather' => 'Weather',
+    'taladyai_phuket' => 'Taladyai, Phuket',
 
 
 ];

@@ -5,17 +5,20 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Repositories\BuildingRepositories;
+use App\Http\Controllers\Admin\LineNotifyController;
 use function Symfony\Component\Translation\t;
 
 class BuildingControllers
 {
     public $VariableControllers;
     public $BuildingRepositories;
+    public $LineNotifyController;
 
-    public function __construct(VariableControllers $VariableControllers, BuildingRepositories $BuildingRepositories)
+    public function __construct(VariableControllers $VariableControllers, BuildingRepositories $BuildingRepositories, LineNotifyController $LineNotifyController)
     {
         $this->VariableControllers = $VariableControllers;
         $this->BuildingRepositories = $BuildingRepositories;
+        $this->LineNotifyController = $LineNotifyController;
     }
 
     public function index(){
@@ -46,6 +49,7 @@ class BuildingControllers
 
     public function insertDataBuildingEachDay(Request $input)
     {
+
         $request = $input->get('form');
         $date = date($request['date']);
         $building = $request['building'];
@@ -72,8 +76,11 @@ class BuildingControllers
             'display' => 1,
             'status' => 1
         ];
+        $request['building'] = $data['building'];
+        $request['date'] = $data['date'];
 
         if($this->BuildingRepositories->save($data)){
+            $this->LineNotifyController->warehouseNotification($request);
             return back()
                 ->with('warning', 'success')
                 ->with('message', 'บันทึก '. $data['date'].' สำเร็จ');

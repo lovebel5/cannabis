@@ -70,7 +70,7 @@ class EventControllers
             'user' => $dataInput['json']['data']['user']
         ];
 
-        $this->LineNotifyController->sendNotification($messageToLineNotifyController);
+        $this->LineNotifyController->eventNotification($messageToLineNotifyController);
 
         if($this->EventRepositories->save($data)){
             return response()->json([

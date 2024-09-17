@@ -93,4 +93,5 @@ return [
     'sent_successfully' => 'ข้อมูลถูกส่งสำเร็จ',
     'sent_data_error' => 'ข้อมูลส่งไม่สำเร็จ',
     'qr_code_already_scanned' => 'โค้ดนี้ถูกสแกนไปแล้ว',
+    'taladyai_phuket' => 'ตลาดใหญ่, ภูเก็ต',
 ];
