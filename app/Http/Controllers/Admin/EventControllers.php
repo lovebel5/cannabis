@@ -8,6 +8,7 @@ use App\Libraries\EventLibraries;
 use App\Repositories\ProfileRepositories;
 use App\Repositories\IndexRepositories;
 use App\Http\Controllers\Admin\LineNotifyController;
+use App\Http\Controllers\Admin\DiscordControllers;
 
 use Illuminate\Http\Request;
 use function Symfony\Component\String\u;
@@ -20,13 +21,16 @@ class EventControllers
     public $IndexRepositories;
     public $VariableControllers;
     public $LineNotifyController;
+    public $DiscordControllers;
 
     public function __construct(EventRepositories $EventRepositories,
                                 EventLibraries $EventLibraries,
                                 ProfileRepositories $ProfileRepositories,
                                 IndexRepositories $IndexRepositories,
                                 VariableControllers $VariableControllers,
-                                LineNotifyController $LineNotifyController)
+                                LineNotifyController $LineNotifyController,
+                                DiscordControllers $DiscordControllers
+    )
     {
         $this->EventRepositories = $EventRepositories;
         $this->EventLibraries = $EventLibraries;
@@ -34,6 +38,7 @@ class EventControllers
         $this->IndexRepositories = $IndexRepositories;
         $this->VariableControllers = $VariableControllers;
         $this->LineNotifyController = $LineNotifyController;
+        $this->DiscordControllers = $DiscordControllers;
 
     }
 
@@ -63,14 +68,16 @@ class EventControllers
             'val_json' => json_encode($dataInput['json']),
         ];
 
-        $messageToLineNotifyController = [
+        $messageToNotifyController = [
             'id_basic_info' => $data['id_basic_info'],
             'tags' => $dataInput['json']['data']['tags'],
             'message' => $dataInput['json']['data']['message'],
             'user' => $dataInput['json']['data']['user']
         ];
 
-        $this->LineNotifyController->eventNotification($messageToLineNotifyController);
+        //ส่งการแจ้งเตือนไปกลุ่ม
+        $this->LineNotifyController->eventNotification($messageToNotifyController);
+        $this->DiscordControllers->sendEventToDiscord($messageToNotifyController);
 
         if($this->EventRepositories->save($data)){
             return response()->json([

@@ -4,19 +4,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\weatherControllers;
+use App\Http\Controllers\Admin\DiscordControllers;
 use Illuminate\Support\Facades\Http;
 
 class LineNotifyController
 {
     protected $lineToken;
     public $weatherControllers;
+    public $DiscordControllers;
 
-    public function __construct(weatherControllers $weatherControllers)
+    public function __construct(
+        weatherControllers $weatherControllers,
+        DiscordControllers $DiscordControllers
+    )
     {
         // ใส่ Line Notify Token ที่ได้จากการลงทะเบียนกับ Line Notify API
         $this->lineToken = env('LINE_NOTIFY_TOKEN');
         $this->weatherControllers = $weatherControllers;
+        $this->DiscordControllers = $DiscordControllers;
     }
+
 
     // ฟังก์ชันส่งข้อความไปยัง Line Notify
     public function sendNotification($message)
@@ -49,7 +56,11 @@ class LineNotifyController
 
     public function sendWeatherToLineGroup(){
        $weather = $this->weatherControllers->index();
-       $message = "\n Today: (".date('D').".) ".date('Y-m-d')."\n Temperature: ".$weather['tc_max']."/".$weather['tc_min']." °C"."\n Moisture: ".$weather['rh']." %"."\n Location: Taladyai, Phuket";
+       $message = " Climate\n"." Date: (".date('D').".) ".date('Y-m-d')."\n Location Outside: Taladyai, Phuket\n Temp.: ".$weather['tc_max']."/".$weather['tc_min']." °C"."\n Moisture: ".$weather['rh'].' %'."\n Weather: ".$weather['cond'];
        $this->sendNotification($message);
+       $this->DiscordControllers->sendWeatherToDiscord($message);
+
+
+
     }
 }

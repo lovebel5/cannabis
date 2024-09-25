@@ -25,7 +25,7 @@ class WeatherControllers
 
     public function index(){
         $weather = $this->WeatherLibraries->getWeatherAPI();
-
+        $weather['WeatherForecasts'][0]['forecasts'][0]['data']['cond'] = $this->WeatherLibraries->weatherCondition($weather['WeatherForecasts'][0]['forecasts'][0]['data']['cond']);
         return $weather['WeatherForecasts'][0]['forecasts'][0]['data'];
     }
 }
